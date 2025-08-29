@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Conflict and Event Data - Regressions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Conflict and Event Data</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session01.html" rel="" target="">
+ <span class="menu-text">1: Getting Started with R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session02.html" rel="" target="">
+ <span class="menu-text">2: Exploring Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session03.html" rel="" target="">
+ <span class="menu-text">3: Data Wrangling</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session04.html" rel="" target="">
+ <span class="menu-text">Merging Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session05.html" rel="" target="">
+ <span class="menu-text">5: Descriptive Statistics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./session06.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Regressions</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session07.html" rel="" target="">
+ <span class="menu-text">Visualizations</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning Goals</a>
+  <ul class="collapse">
+  <li><a href="#load-and-clean-data" id="toc-load-and-clean-data" class="nav-link" data-scroll-target="#load-and-clean-data">Load and Clean Data</a></li>
+  </ul></li>
+  <li><a href="#what-is-linear-regression" id="toc-what-is-linear-regression" class="nav-link" data-scroll-target="#what-is-linear-regression">📈 1) What is Linear Regression?</a>
+  <ul class="collapse">
+  <li><a href="#example-fatalities-on-gdp" id="toc-example-fatalities-on-gdp" class="nav-link" data-scroll-target="#example-fatalities-on-gdp">Example: Fatalities on GDP</a></li>
+  </ul></li>
+  <li><a href="#what-is-logit-regression" id="toc-what-is-logit-regression" class="nav-link" data-scroll-target="#what-is-logit-regression">🧮 2) What is Logit Regression?</a>
+  <ul class="collapse">
+  <li><a href="#example-conflict-on-gdp-and-population" id="toc-example-conflict-on-gdp-and-population" class="nav-link" data-scroll-target="#example-conflict-on-gdp-and-population">Example: Conflict on GDP and Population</a></li>
+  <li><a href="#diagnostics-for-generalized-linear-models-glm-e.g.-logit" id="toc-diagnostics-for-generalized-linear-models-glm-e.g.-logit" class="nav-link" data-scroll-target="#diagnostics-for-generalized-linear-models-glm-e.g.-logit">Diagnostics for Generalized Linear Models (GLM, e.g.&nbsp;Logit)</a>
+  <ul class="collapse">
+  <li><a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link" data-scroll-target="#goodness-of-fit">Goodness of fit</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#comparing-ols-vs-logit" id="toc-comparing-ols-vs-logit" class="nav-link" data-scroll-target="#comparing-ols-vs-logit">📊 3) Comparing OLS vs Logit</a>
+  <ul class="collapse">
+  <li><a href="#comparing-model-fit-across-models" id="toc-comparing-model-fit-across-models" class="nav-link" data-scroll-target="#comparing-model-fit-across-models">Comparing Model Fit Across Models</a></li>
+  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">🧪 Exercises</a></li>
+  <li><a href="#fixed-and-random-effects" id="toc-fixed-and-random-effects" class="nav-link" data-scroll-target="#fixed-and-random-effects">4) Fixed and Random Effects</a></li>
+  <li><a href="#what-are-fixed-effects-fe-vs-random-effects-re" id="toc-what-are-fixed-effects-fe-vs-random-effects-re" class="nav-link" data-scroll-target="#what-are-fixed-effects-fe-vs-random-effects-re">What are Fixed Effects (FE) vs Random Effects (RE)?</a>
+  <ul class="collapse">
+  <li><a href="#fixed-effects-with-fixest-recommended" id="toc-fixed-effects-with-fixest-recommended" class="nav-link" data-scroll-target="#fixed-effects-with-fixest-recommended">Fixed Effects with <code>fixest</code> (recommended)</a></li>
+  <li><a href="#country-fe" id="toc-country-fe" class="nav-link" data-scroll-target="#country-fe">Country FE</a></li>
+  <li><a href="#year-fe" id="toc-year-fe" class="nav-link" data-scroll-target="#year-fe">Year FE</a></li>
+  <li><a href="#two-way-fe-country-year" id="toc-two-way-fe-country-year" class="nav-link" data-scroll-target="#two-way-fe-country-year">Two-way FE (country &amp; year)</a></li>
+  </ul></li>
+  <li><a href="#binary-outcome-with-fixed-effects-logit-fe" id="toc-binary-outcome-with-fixed-effects-logit-fe" class="nav-link" data-scroll-target="#binary-outcome-with-fixed-effects-logit-fe">Binary outcome with fixed effects (Logit FE)</a></li>
+  <li><a href="#exercises-1" id="toc-exercises-1" class="nav-link" data-scroll-target="#exercises-1">🧪 Exercises</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">✅ Key Takeaways</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Regressions</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-warnings="false">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"dplyr"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">"WDI"</span>,   <span class="st">"fixest"</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"countrycode"</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Install uninstalled packages</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(packages[<span class="sc">!</span>(packages <span class="sc">%in%</span> <span class="fu">installed.packages</span>())], install.packages)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load all packages to library</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(packages, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>)            </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="learning-goals" class="level1">
+<h1>Learning Goals</h1>
+<p>By the end of this session you will:</p>
+<ul>
+<li>Understand the difference between <strong>linear regression</strong> and <strong>logit regression</strong></li>
+<li>Run both models on conflict data</li>
+<li>Interpret coefficients correctly</li>
+</ul>
+<p>For this session we’ll use <strong>aggregated UCDP data</strong> (from Session 4):</p>
+<p>We are going back to our raw ucdp dataset.</p>
+<section id="load-and-clean-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-and-clean-data">Load and Clean Data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"Data/GEDEvent_v25_1.rds"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ucdp <span class="ot">&lt;-</span> ucdp <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(conflict_new_id, country, year, date_start, date_end, deaths_a, deaths_b,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>   deaths_civilians, deaths_unknown, low, best, high)<span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Aggregate to country-years</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ucdp_y <span class="ot">&lt;-</span> ucdp <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country, year) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">deaths_a =</span> <span class="fu">sum</span>(deaths_a, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">deaths_b =</span> <span class="fu">sum</span>(deaths_b, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">deaths_civilians =</span> <span class="fu">sum</span>(deaths_civilians, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">best =</span> <span class="fu">sum</span>(best, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We also integrate Data in peacekeeping missions</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pko <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"Data/Geo_PKO_v.2.3_location_map.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Filter out variables and countries not in Africa</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pko <span class="ot">&lt;-</span> pko <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mission, prioid, no.troops, country, year) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate_at</span>(<span class="fu">vars</span>(no.troops), as.numeric) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Summarize to country-years</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pko_y <span class="ot">&lt;-</span> pko <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country, year) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">no.troops =</span> <span class="fu">sum</span>(no.troops, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we merge it with WorldBank indicators.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>wb_data<span class="ot">&lt;-</span> <span class="fu">WDI</span>(<span class="at">country =</span> <span class="st">"all"</span>, <span class="at">indicator =</span> <span class="fu">c</span>(<span class="st">"population"</span> <span class="ot">=</span><span class="st">"SP.POP.TOTL"</span>,<span class="st">"gdp_pc"</span> <span class="ot">=</span> <span class="st">"NY.GDP.PCAP.KD"</span>, <span class="st">"edu"</span> <span class="ot">=</span> <span class="st">"SE.PRM.ENRR"</span>, <span class="st">"child_mort"</span> <span class="ot">=</span><span class="st">"HF.DYN.MORT"</span>), <span class="co"># select the indicator</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">start =</span> <span class="dv">1990</span>, <span class="co"># define the start date</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">end =</span> <span class="dv">2024</span>) <span class="co"># define the end date</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SE.PRM.ENRR =  School enrollment, primary (% gross)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># HF.DYN.MORT   =   Mortality rate, under-5 (per 1,000)</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wb_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   country             iso2c              iso3c                year     
+ Length:9687        Length:9687        Length:9687        Min.   :1990  
+ Class :character   Class :character   Class :character   1st Qu.:1998  
+ Mode  :character   Mode  :character   Mode  :character   Median :2007  
+                                                          Mean   :2007  
+                                                          3rd Qu.:2016  
+                                                          Max.   :2024  
+                                                                        
+   population            gdp_pc              edu            child_mort     
+ Min.   :8.798e+03   Min.   :   166.7   Min.   :  8.448   Min.   :  6.309  
+ 1st Qu.:1.359e+06   1st Qu.:  1564.9   1st Qu.: 96.135   1st Qu.: 39.896  
+ Median :9.042e+06   Median :  4637.7   Median :101.231   Median : 71.623  
+ Mean   :2.705e+08   Mean   : 13189.9   Mean   :100.020   Mean   : 82.823  
+ 3rd Qu.:5.742e+07   3rd Qu.: 16390.8   3rd Qu.:106.744   3rd Qu.:115.657  
+ Max.   :8.142e+09   Max.   :224582.5   Max.   :257.434   Max.   :273.760  
+ NA's   :412         NA's   :947        NA's   :2553      NA's   :9420     </code></pre>
+</div>
+</div>
+<p>Subset to Africa</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UCDP Data</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ucdp_y <span class="ot">&lt;-</span> ucdp_y <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">region =</span> <span class="fu">countrycode</span>(country, <span class="st">"country.name"</span>, <span class="st">"continent"</span>))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ucdp_y <span class="ot">&lt;-</span> ucdp_y <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">"Africa"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># PKO Data</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>pko_y <span class="ot">&lt;-</span> pko_y <span class="sc">%&gt;%</span> </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">region =</span> <span class="fu">countrycode</span>(country, <span class="st">"country.name"</span>, <span class="st">"continent"</span>))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>pko_y <span class="ot">&lt;-</span> pko_y <span class="sc">%&gt;%</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">"Africa"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># WB Data</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>wb_data <span class="ot">&lt;-</span> wb_data <span class="sc">%&gt;%</span> </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">region =</span> <span class="fu">countrycode</span>(iso3c, <span class="st">"iso3c"</span>, <span class="st">"continent"</span>))</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>wb_africa <span class="ot">&lt;-</span> wb_data <span class="sc">%&gt;%</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">"Africa"</span>, </span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>                <span class="sc">!</span><span class="fu">is.na</span>(country),</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span>country <span class="sc">%in%</span>  <span class="fu">c</span>(<span class="st">"Cote D'Ivoire"</span>, <span class="st">"eSwatini"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Prepare the merging</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean Iso Codes as country names</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For the UCDP dataset</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ucdp_y <span class="ot">&lt;-</span> ucdp_y <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">iso3c =</span> <span class="fu">countrycode</span>(country, <span class="st">"country.name"</span>, <span class="st">"iso3c"</span>))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># For the PKO dataset</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>pko_y <span class="ot">&lt;-</span> pko_y <span class="sc">%&gt;%</span> </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">iso3c =</span> <span class="fu">countrycode</span>(country, <span class="st">"country.name"</span>, <span class="st">"iso3c"</span>))</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>wb_africa <span class="ot">&lt;-</span> wb_africa <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(country, region))</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>ucdp_y <span class="ot">&lt;-</span> ucdp_y <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(country, region))</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>pko_y <span class="ot">&lt;-</span> pko_y <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(country, region))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Execute the merge</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> ucdp_y <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(pko_y, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"iso3c"</span>, <span class="st">"year"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(wb_africa, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"iso3c"</span>, <span class="st">"year"</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># add countrynames again, clean and harmonious</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> merged <span class="sc">%&gt;%</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">countrycode</span>(iso3c, <span class="st">"iso3c"</span>, <span class="st">"country.name"</span>))</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Now convert NA values of event data to 0 (=no event was forced into NA value)</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> merged <span class="sc">%&gt;%</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(best, deaths_civilians, deaths_a, deaths_b, no.troops), <span class="sc">~</span> <span class="fu">replace_na</span>(., <span class="dv">0</span>)))</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># save as new dataframe for regressions</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(merged)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      year         deaths_a           deaths_b        deaths_civilians  
+ Min.   :1989   Min.   :     0.0   Min.   :    0.00   Min.   :     0.0  
+ 1st Qu.:1998   1st Qu.:     0.0   1st Qu.:    0.00   1st Qu.:     0.0  
+ Median :2007   Median :     0.0   Median :    0.00   Median :     0.0  
+ Mean   :2007   Mean   :   226.1   Mean   :  122.16   Mean   :   557.9  
+ 3rd Qu.:2016   3rd Qu.:     8.0   3rd Qu.:   11.25   3rd Qu.:    16.0  
+ Max.   :2024   Max.   :132995.0   Max.   :25773.00   Max.   :771118.0  
+                                                                        
+      best             iso3c             no.troops         iso2c          
+ Min.   :     0.0   Length:1940        Min.   :     0   Length:1940       
+ 1st Qu.:     0.0   Class :character   1st Qu.:     0   Class :character  
+ Median :     0.0   Mode  :character   Median :     0   Mode  :character  
+ Mean   :  1052.9                      Mean   :  2813                     
+ 3rd Qu.:   101.2                      3rd Qu.:     0                     
+ Max.   :772463.0                      Max.   :114700                     
+                                                                          
+   population            gdp_pc             edu            child_mort    
+ Min.   :    69507   Min.   :  188.7   Min.   :  8.448   Min.   : 24.52  
+ 1st Qu.:  2247637   1st Qu.:  615.2   1st Qu.: 76.993   1st Qu.: 71.62  
+ Median :  9870695   Median : 1067.4   Median : 97.096   Median :107.57  
+ Mean   : 18962179   Mean   : 2182.5   Mean   : 94.177   Mean   :111.69  
+ 3rd Qu.: 22514114   3rd Qu.: 2431.8   3rd Qu.:110.331   3rd Qu.:143.59  
+ Max.   :232679478   Max.   :19481.6   Max.   :156.802   Max.   :273.76  
+ NA's   :50          NA's   :115       NA's   :527       NA's   :1803    
+   country         
+ Length:1940       
+ Class :character  
+ Mode  :character  
+                   
+                   
+                   
+                   </code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="what-is-linear-regression" class="level1">
+<h1>📈 1) What is Linear Regression?</h1>
+<p>Linear regression models a <strong>continuous outcome</strong> as a <strong>linear function</strong> of predictors.</p>
+<p><strong>General form:</strong></p>
+<p><span class="math inline">\(Y = \beta_0 + \beta_1 X + \epsilon\)</span></p>
+<ul>
+<li><span class="math inline">\(Y\)</span>end:math:text$ = outcome (e.g., number of fatalities)<br>
+</li>
+<li><span class="math inline">\(X\)</span>end:math:text$ = predictor (e.g., GDP per capita)<br>
+</li>
+<li><span class="math inline">\(\beta_1\)</span> = effect of GDP on fatalities<br>
+</li>
+<li><span class="math inline">\(\epsilon\)</span> = error term</li>
+</ul>
+<hr>
+<section id="example-fatalities-on-gdp" class="level3">
+<h3 class="anchored" data-anchor-id="example-fatalities-on-gdp">Example: Fatalities on GDP</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(best <span class="sc">~</span> gdp_pc, <span class="at">data =</span> df)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = best ~ gdp_pc, data = df)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+ -1525  -1379  -1176   -522 770932 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept) 1572.3276   563.4780   2.790  0.00532 **
+gdp_pc        -0.2200     0.1603  -1.372  0.17023   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 18870 on 1823 degrees of freedom
+  (115 observations deleted due to missingness)
+Multiple R-squared:  0.001032,  Adjusted R-squared:  0.0004835 
+F-statistic: 1.882 on 1 and 1823 DF,  p-value: 0.1702</code></pre>
+</div>
+</div>
+<p>Interpretation:</p>
+<ul>
+<li>Coefficient on GDP = expected change in fatalities when GDP increases by 1 unit (USD).<br>
+</li>
+<li>If negative = richer countries experience fewer fatalities.</li>
+</ul>
+<p>Adding predictors</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(best <span class="sc">~</span> gdp_pc<span class="sc">+</span>population<span class="sc">+</span>no.troops, <span class="at">data =</span> df)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = best ~ gdp_pc + population + no.troops, data = df)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+ -4793  -1218   -896   -419 771334 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)  9.099e+02  6.620e+02   1.375   0.1694  
+gdp_pc      -1.856e-01  1.619e-01  -1.146   0.2518  
+population   2.881e-05  1.537e-05   1.874   0.0611 .
+no.troops    9.661e-03  3.700e-02   0.261   0.7940  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 18860 on 1821 degrees of freedom
+  (115 observations deleted due to missingness)
+Multiple R-squared:  0.003071,  Adjusted R-squared:  0.001428 
+F-statistic:  1.87 on 3 and 1821 DF,  p-value: 0.1327</code></pre>
+</div>
+</div>
+<p><strong>Estimate: the coefficient (slope).</strong></p>
+<ul>
+<li><p>Positive coefficients means that something increases – Negative coefficients means that something decreases</p></li>
+<li><p>Intercept = predicted fatalities (Y) when GDP and population are zero (not substantively meaningful, but mathematically necessary).</p></li>
+<li><p>GDP coefficient = -0.1856 = each extra dollar of GDP per capita is associated with 0.18 fewer fatalities, holding population constant.</p></li>
+<li><p>Population coefficient = 0.000028 = each extra person increases predicted fatalities by a tiny amount.</p></li>
+</ul>
+<p><strong>Std. Error:</strong> uncertainty in each estimate. Smaller SE = more precise estimate.</p>
+<p>– Small standard error relative to coefficient means that we are quite certain – Large standard error relative to coefficient means that the coefficient is not reliable</p>
+<p><strong>t value</strong> = Estimate ÷ Std. Error. Used to test <span class="math inline">\(H_0\)</span>: coefficient = 0.</p>
+<p><strong>Pr(&gt;|t|) = p-value:</strong> probability of seeing such a t value if the true effect is 0.</p>
+<ul>
+<li>Intercept: p = 0.052 = marginally significant at 10% level.</li>
+<li>GDP: p = 0.142 = not significant.</li>
+<li>Population: p = 0.312 = not significant.</li>
+</ul>
+<p><strong>Signif. codes:</strong></p>
+<ul>
+<li>*** = highly significant (p &lt; 0.001)</li>
+<li>** = p &lt; 0.01</li>
+<li><ul>
+<li>= p &lt; 0.05</li>
+</ul></li>
+<li>. = p &lt; 0.1 (marginal)</li>
+<li>blank = not significant.</li>
+<li>(Overrated)</li>
+</ul>
+<p>Here only the intercept is marginally significant.</p>
+<p>Residual standard error (RSE) = $$27,400 - Average size of prediction errors (in original units of Y, here fatalities). - Large relative to the mean fatalities? Then predictions are noisy.</p>
+<p>Degrees of freedom = 859</p>
+<ul>
+<li>Sample size minus estimated parameters.</li>
+<li>Sample size (after dropping 42 missing cases): n = 862 (we know this because df + number of coefficients = sample size).</li>
+</ul>
+<p>Number of parameters estimated: - Intercept = 1 - GDP = 1 - Population = 1 → k = 3 - Residual df: df = n - k = 862 - 3 = 859</p>
+<p>42 observations dropped due to missing data (important to mention when reporting).</p>
+<p>Multiple R-squared = 0.0033</p>
+<ul>
+<li>Model explains only 0.33% of the variation in fatalities.</li>
+<li>Poor fit.</li>
+</ul>
+<p>Adjusted R-squared = 0.0010</p>
+<ul>
+<li>Adjusts for number of predictors. Still basically zero.</li>
+<li>Means the predictors (GDP, population) barely help explain fatalities.</li>
+</ul>
+<p>F-statistic = 1.423, p = 0.242</p>
+<ul>
+<li>Joint test of whether all coefficients = 0.</li>
+<li>Here, p <span class="math inline">\(&gt;\)</span> 0.05 → fail to reject <span class="math inline">\(H_0\)</span>. The model as a whole is not statistically significant.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="what-is-logit-regression" class="level1">
+<h1>🧮 2) What is Logit Regression?</h1>
+<p>Sometimes the outcome is <strong>binary</strong> (conflict yes/no).<br>
+OLS is not appropriate because:</p>
+<ul>
+<li>Predictions can fall below 0 or above 1<br>
+</li>
+<li>Errors are not normally distributed</li>
+</ul>
+<p>Logit regression models the <strong>probability of conflict</strong>:</p>
+<ul>
+<li>Output is always between 0 and 1<br>
+</li>
+<li>Coefficients are in <strong>log-odds</strong>, not direct changes</li>
+</ul>
+<hr>
+<section id="example-conflict-on-gdp-and-population" class="level3">
+<h3 class="anchored" data-anchor-id="example-conflict-on-gdp-and-population">Example: Conflict on GDP and Population</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>conflict_dummy <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>best <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>logit1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(conflict_dummy <span class="sc">~</span> gdp_pc,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> df,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = conflict_dummy ~ gdp_pc, family = binomial(link = "logit"), 
+    data = df)
+
+Coefficients:
+              Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  0.2425213  0.0645507   3.757 0.000172 ***
+gdp_pc      -0.0002183  0.0000245  -8.911  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2513.6  on 1824  degrees of freedom
+Residual deviance: 2404.9  on 1823  degrees of freedom
+  (115 observations deleted due to missingness)
+AIC: 2408.9
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>Interpretation:<br>
+- Positive coefficient = higher predictor increases probability of conflict<br>
+- Negative coefficient = predictor decreases probability of conflict<br>
+- Use <code>exp(coef())</code> to interpret as <strong>odds ratios</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(logit1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)      gdp_pc 
+  1.2744584   0.9997818 </code></pre>
+</div>
+</div>
+</section>
+<section id="diagnostics-for-generalized-linear-models-glm-e.g.-logit" class="level2">
+<h2 class="anchored" data-anchor-id="diagnostics-for-generalized-linear-models-glm-e.g.-logit">Diagnostics for Generalized Linear Models (GLM, e.g.&nbsp;Logit)</h2>
+<p>GLMs (like logit) do <strong>not</strong> assume normality of errors. Instead, they assume:</p>
+<ol type="1">
+<li><strong>Correct link function</strong> (logit for binary).<br>
+</li>
+<li><strong>Distribution of DV matches family</strong> (binomial for binary).<br>
+</li>
+<li><strong>Independence of observations</strong>.<br>
+</li>
+<li><strong>No perfect separation</strong> (predictors should not perfectly classify outcome).</li>
+</ol>
+<section id="goodness-of-fit" class="level3">
+<h3 class="anchored" data-anchor-id="goodness-of-fit">Goodness of fit</h3>
+<p>OLS R² doesn’t exist for GLMs. Instead:</p>
+<ul>
+<li><strong>Log-likelihood</strong>: higher = better fit.<br>
+</li>
+<li><strong>AIC / BIC</strong>: lower = better (for model comparison).<br>
+</li>
+<li><strong>Pseudo-R²</strong> (McFadden’s): compares log-likelihood of model vs null model.</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="comparing-ols-vs-logit" class="level1">
+<h1>📊 3) Comparing OLS vs Logit</h1>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 38%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Linear Regression (OLS)</th>
+<th>Logit Regression</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Outcome type</td>
+<td>Continuous (fatalities, GDP)</td>
+<td>Binary (conflict yes/no)</td>
+</tr>
+<tr class="even">
+<td>Predicted values</td>
+<td>Any real number</td>
+<td>Between 0 and 1</td>
+</tr>
+<tr class="odd">
+<td>Interpretation</td>
+<td>Change in Y</td>
+<td>Change in probability (via odds)</td>
+</tr>
+</tbody>
+</table>
+<section id="comparing-model-fit-across-models" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-model-fit-across-models">Comparing Model Fit Across Models</h2>
+<ul>
+<li>For <strong>OLS</strong>: Compare <span class="math inline">\(R^²\)</span>, Adjusted <span class="math inline">\(R^²\)</span>.<br>
+</li>
+<li>For <strong>GLM</strong>: Compare AIC, BIC, Pseudo-<span class="math inline">\(R^²\)</span>, AUC.<br>
+</li>
+<li>Always balance <strong>fit</strong> with <strong>interpretability</strong> and <strong>theory</strong>.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="exercises" class="level1">
+<h1>🧪 Exercises</h1>
+<ol type="1">
+<li><strong>Linear regression:</strong> Regress fatalities (<code>deaths_civilians</code>) on GDP, school enrollement, child mortality, pko troops and population. Which variable has the stronger effect?<br>
+</li>
+<li><strong>Logit regression:</strong> Create a dummy variable from (<code>deaths_civilians</code>). Regress the dummy on GDP, school enrollement, child mortality, pko troops and population. Which predictor is significant?<br>
+</li>
+<li><strong>Compare:</strong> Interpret the difference between the OLS and Logit results.<br>
+</li>
+<li><strong>Challenge:</strong> Add <code>country</code> fixed effects using <code>as.factor(country)</code> in your regression. What changes?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="fixed-and-random-effects" class="level1">
+<h1>4) Fixed and Random Effects</h1>
+</section>
+<section id="what-are-fixed-effects-fe-vs-random-effects-re" class="level1">
+<h1>What are Fixed Effects (FE) vs Random Effects (RE)?</h1>
+<p><strong>Panel data</strong>: repeated observations for each country across years.</p>
+<ul>
+<li><strong>Country Fixed Effects (FE)</strong> control for <strong>all time-invariant country traits</strong> (geography, history, culture) by using <strong>within-country variation</strong> over time.</li>
+<li><strong>Year Fixed Effects</strong> control for <strong>shocks common to all countries in a given year</strong> (commodity prices, global crises).</li>
+<li><strong>Two-way FE</strong> = country FE + year FE.</li>
+</ul>
+<p><strong>Random Effects (RE)</strong> assume those unobserved country traits are <strong>uncorrelated</strong> with the regressors (like GDP). If that assumption is violated, RE is biased; FE stays consistent.</p>
+<p>👉 <strong>Rule of thumb</strong>: If you suspect <strong>correlation between unobserved country characteristics and regressors</strong>, use <strong>FE</strong>. Use <strong>RE</strong> if the strict exogeneity/orthogonality is plausible and you need <strong>time-invariant effects</strong> estimated.</p>
+<hr>
+<section id="fixed-effects-with-fixest-recommended" class="level2">
+<h2 class="anchored" data-anchor-id="fixed-effects-with-fixest-recommended">Fixed Effects with <code>fixest</code> (recommended)</h2>
+<p><code>fixest::feols()</code> uses <code>|</code> to specify fixed effects. It’s fast and handles multi-way FE and robust SEs easily.</p>
+</section>
+<section id="country-fe" class="level2">
+<h2 class="anchored" data-anchor-id="country-fe">Country FE</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fe_country <span class="ot">&lt;-</span> <span class="fu">feols</span>(best <span class="sc">~</span> gdp_pc <span class="sc">+</span> population <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    no.troops <span class="sc">|</span> country, <span class="at">data =</span> df, <span class="at">cluster =</span> <span class="sc">~</span> country)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>OLS estimation, Dep. Var.: best
+Observations: 1,825
+Fixed-effects: country: 54
+Standard-errors: Clustered (country) 
+            Estimate Std. Error   t value Pr(&gt;|t|) 
+gdp_pc     -0.250849   0.205184 -1.222555  0.22691 
+population  0.000053   0.000060  0.893558  0.37560 
+no.troops   0.002015   0.032268  0.062449  0.95044 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+RMSE: 18,511.4     Adj. R2: 0.006764
+                 Within R2: 7.055e-4</code></pre>
+</div>
+</div>
+<ul>
+<li><code>| country</code> adds <strong>country fixed effects</strong>.</li>
+<li><code>cluster = ~ country</code> gives <strong>cluster-robust SEs</strong> at country level.</li>
+</ul>
+<p><strong>Why clustering?</strong></p>
+<p>In panel data (countries × years):</p>
+<pre><code>-   Observations within a country are likely correlated (serial correlation).
+-   Example: if a conflict is ongoing in Sudan in 2012, it’s likely to persist in 2013.
+-   This means residuals are not independent within countries.</code></pre>
+<p>If we ignore this, SEs will be too small → p-values too optimistic, making insignificant results look significant.</p>
+<p>Clustered SEs adjust the variance–covariance matrix of the coefficients to allow:</p>
+<pre><code>-   Arbitrary correlation within clusters (e.g., countries).
+-   Still assume independence between clusters (e.g., Sudan vs Kenya).</code></pre>
+</section>
+<section id="year-fe" class="level2">
+<h2 class="anchored" data-anchor-id="year-fe">Year FE</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fe_year <span class="ot">&lt;-</span> <span class="fu">feols</span>(best <span class="sc">~</span> gdp_pc <span class="sc">+</span> population <span class="sc">+</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    no.troops <span class="sc">|</span> year, <span class="at">data =</span> df, <span class="at">cluster =</span> <span class="sc">~</span> country)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>OLS estimation, Dep. Var.: best
+Observations: 1,825
+Fixed-effects: year: 35
+Standard-errors: Clustered (country) 
+            Estimate Std. Error   t value Pr(&gt;|t|) 
+gdp_pc     -0.142355   0.099853 -1.425652  0.15983 
+population  0.000032   0.000025  1.288885  0.20304 
+no.troops   0.018240   0.019878  0.917635  0.36297 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+RMSE: 18,664.6     Adj. R2: 9.982e-4
+                 Within R2: 0.003347</code></pre>
+</div>
+</div>
+</section>
+<section id="two-way-fe-country-year" class="level2">
+<h2 class="anchored" data-anchor-id="two-way-fe-country-year">Two-way FE (country &amp; year)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fe_tw <span class="ot">&lt;-</span> <span class="fu">feols</span>(best <span class="sc">~</span> gdp_pc <span class="sc">+</span> population <span class="sc">+</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    no.troops <span class="sc">|</span> country <span class="sc">+</span> year, <span class="at">data =</span> df, <span class="at">cluster =</span> <span class="sc">~</span> country)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_tw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>OLS estimation, Dep. Var.: best
+Observations: 1,825
+Fixed-effects: country: 54,  year: 35
+Standard-errors: Clustered (country) 
+           Estimate Std. Error  t value Pr(&gt;|t|) 
+gdp_pc     0.182189   0.185095 0.984302  0.32944 
+population 0.000107   0.000072 1.498453  0.13995 
+no.troops  0.013590   0.036787 0.369436  0.71328 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+RMSE: 18,326.6     Adj. R2: 0.007412
+                 Within R2: 0.001939</code></pre>
+</div>
+</div>
+<p><strong>Interpretation tips:</strong> - Coefficients use <strong>within-country</strong> (and within-year) variation only. - Time-invariant country variables drop out with country FE (that’s expected).</p>
+<hr>
+</section>
+</section>
+<section id="binary-outcome-with-fixed-effects-logit-fe" class="level1">
+<h1>Binary outcome with fixed effects (Logit FE)</h1>
+<p>For <strong>binary DV</strong> (e.g., <code>conflict</code>), you can add fixed effects in a logit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>logit_fe <span class="ot">&lt;-</span> <span class="fu">feglm</span>(conflict_dummy <span class="sc">~</span>  gdp_pc <span class="sc">+</span> population <span class="sc">+</span>no.troops <span class="sc">|</span> country <span class="sc">+</span> year, <span class="at">data =</span> df, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logit_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GLM estimation, family = binomial, Dep. Var.: conflict_dummy
+Observations: 1,335
+Fixed-effects: country: 40,  year: 35
+Standard-errors: Clustered (country) 
+                Estimate   Std. Error   z value Pr(&gt;|z|) 
+gdp_pc     -0.0005863531 0.0004091659 -1.433045  0.15185 
+population  0.0000000337 0.0000000415  0.812156  0.41670 
+no.troops   0.0000234234 0.0000187680  1.248052  0.21201 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Log-Likelihood:  -634.8   Adj. Pseudo R2: 0.222379
+           BIC: 1,823.8     Squared Cor.: 0.36224 </code></pre>
+</div>
+</div>
+<ul>
+<li><code>feglm()</code> fits <strong>GLM with absorbed fixed effects</strong> (here: country &amp; year).</li>
+<li>Use <code>type = "response"</code> on <code>predict()</code> to get predicted probabilities.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_fe, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9384204 0.9215645 0.9572181 0.9629824 0.9422430 0.9569742</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="exercises-1" class="level1">
+<h1>🧪 Exercises</h1>
+<ol type="1">
+<li><strong>Country FE:</strong> Regress <code>deaths_civilians</code> on GDP, school enrollement, child mortality, pko troops and population with <strong>country FE</strong> and <strong>clustered SEs</strong>. Compare to OLS: how does the GDP coefficient change?</li>
+<li><strong>Two-way FE:</strong> Add <strong>year FE</strong>. Does controlling for global shocks (year) change the results?</li>
+<li><strong>Binary DV:</strong> Create a binary variable from <code>deaths_civilians</code> as the DV, estimate a <strong>logit with country FE</strong>. How does it compare to the linear model?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+<section id="key-takeaways" class="level1">
+<h1>✅ Key Takeaways</h1>
+<ul>
+<li>Use <strong>OLS</strong> when outcome is continuous (fatalities, GDP, population).<br>
+</li>
+<li>Use <strong>Logit</strong> when outcome is binary (conflict yes/no).<br>
+</li>
+<li>Logit ensures predictions stay between <strong>0 and 1</strong>.<br>
+</li>
+<li>Always think carefully: What is the nature of your dependent variable?</li>
+<li><strong>FE</strong> removes bias from time-invariant unobservables correlated with regressors (<strong>within-country</strong> identification).<br>
+</li>
+<li><strong>RE</strong> is efficient <strong>if</strong> the orthogonality assumption holds; use the <strong>Hausman test</strong> as a guide.<br>
+</li>
+<li>Use <strong>two-way FE</strong> (country + year) to absorb <strong>unit</strong> and <strong>time</strong> shocks.<br>
+</li>
+<li>Always report <strong>cluster-robust</strong> SEs at the panel level (country).</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

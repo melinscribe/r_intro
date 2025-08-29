@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Conflict and Event Data - 2: Exploring Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Conflict and Event Data</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session01.html" rel="" target="">
+ <span class="menu-text">1: Getting Started with R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./session02.html" rel="" target="" aria-current="page">
+ <span class="menu-text">2: Exploring Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session03.html" rel="" target="">
+ <span class="menu-text">3: Data Wrangling</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session04.html" rel="" target="">
+ <span class="menu-text">4: Merging Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session05.html" rel="" target="">
+ <span class="menu-text">5: Descriptive Statistics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session06.html" rel="" target="">
+ <span class="menu-text">6: Regressions</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">🎯 Learning Goals</a></li>
+  <li><a href="#working-with-data" id="toc-working-with-data" class="nav-link" data-scroll-target="#working-with-data">2. Working with Data</a>
+  <ul class="collapse">
+  <li><a href="#what-is-a-.csv" id="toc-what-is-a-.csv" class="nav-link" data-scroll-target="#what-is-a-.csv">📂 What is a .csv?</a></li>
+  <li><a href="#rows-vs-columns" id="toc-rows-vs-columns" class="nav-link" data-scroll-target="#rows-vs-columns">🧩 Rows vs Columns</a></li>
+  <li><a href="#what-about-excel-files" id="toc-what-about-excel-files" class="nav-link" data-scroll-target="#what-about-excel-files">📊 What About Excel Files?</a></li>
+  <li><a href="#why-we-prefer-csv-in-research" id="toc-why-we-prefer-csv-in-research" class="nav-link" data-scroll-target="#why-we-prefer-csv-in-research">✅ Why We Prefer CSV in Research</a></li>
+  <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory">📂 Working Directory</a></li>
+  <li><a href="#reading-data" id="toc-reading-data" class="nav-link" data-scroll-target="#reading-data">📥 Reading Data</a></li>
+  <li><a href="#inspecting-the-data" id="toc-inspecting-the-data" class="nav-link" data-scroll-target="#inspecting-the-data">🔍 Inspecting the Data</a></li>
+  <li><a href="#reading-acled-data" id="toc-reading-acled-data" class="nav-link" data-scroll-target="#reading-acled-data">📥 Reading ACLED Data</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">🏗 Exercise 1</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">✅ Key Takeaways</a></li>
+  <li><a href="#exercise-3-mini-data-exploration" id="toc-exercise-3-mini-data-exploration" class="nav-link" data-scroll-target="#exercise-3-mini-data-exploration">🏗 Exercise 3 – Mini Data Exploration</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">2: Exploring Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="learning-goals" class="level1">
+<h1>🎯 Learning Goals</h1>
+<p>By the end of this session, you will be able to:</p>
+<ul>
+<li>Load data from <code>.csv</code> files and R packages.</li>
+<li>Explore the structure of a dataset (columns, rows, variable types).</li>
+<li>Understand the working directory in RStudio.</li>
+<li>Practice using <strong>UCDP</strong> and <strong>ACLED</strong> conflict datasets.</li>
+</ul>
+<hr>
+</section>
+<section id="working-with-data" class="level1">
+<h1>2. Working with Data</h1>
+<section id="what-is-a-.csv" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-.csv">📂 What is a .csv?</h2>
+<ul>
+<li><strong>CSV</strong> = <em>Comma-Separated Values</em></li>
+<li>A <strong>plain text file</strong> with data separated by commas:</li>
+</ul>
+<pre><code>country,year,fatalities
+Kenya,2020,42
+Sudan,2020,13</code></pre>
+<ul>
+<li>Can be opened by <strong>R, Python, Excel, Stata, SPSS…</strong></li>
+<li>Universally compatible for research.</li>
+</ul>
+<hr>
+</section>
+<section id="rows-vs-columns" class="level2">
+<h2 class="anchored" data-anchor-id="rows-vs-columns">🧩 Rows vs Columns</h2>
+<ul>
+<li><strong>Each row</strong> = an <strong>observation</strong> (e.g., a conflict event)</li>
+<li><strong>Each column</strong> = a <strong>variable</strong> (e.g., country, year, fatalities)</li>
+</ul>
+<p>Example:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>country</th>
+<th>year</th>
+<th>event_type</th>
+<th>fatalities</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kenya</td>
+<td>2020</td>
+<td>Battle</td>
+<td>42</td>
+</tr>
+<tr class="even">
+<td>Sudan</td>
+<td>2020</td>
+<td>Protest</td>
+<td>13</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="what-about-excel-files" class="level2">
+<h2 class="anchored" data-anchor-id="what-about-excel-files">📊 What About Excel Files?</h2>
+<ul>
+<li>Excel files (<code>.xls</code> / <code>.xlsx</code>) have:
+<ul>
+<li><strong>Formatting</strong> (colors, bold, merged cells)</li>
+<li><strong>Formulas</strong> (like <code>=SUM(A1:A10)</code>)</li>
+<li><strong>Multiple sheets</strong></li>
+</ul></li>
+<li>Excel is <strong>good for humans</strong>, but not ideal for code.</li>
+</ul>
+<hr>
+</section>
+<section id="why-we-prefer-csv-in-research" class="level2">
+<h2 class="anchored" data-anchor-id="why-we-prefer-csv-in-research">✅ Why We Prefer CSV in Research</h2>
+<ul>
+<li><strong>Plain text</strong> → no formatting headaches</li>
+<li><strong>Small file size</strong></li>
+<li><strong>Opens everywhere</strong> (R, Python, SQL, Stata)</li>
+<li><strong>Version control friendly</strong> (Git can track changes)</li>
+</ul>
+<p>💡 <em>In short: CSVs are cleaner, lighter, and easier to automate with R.</em></p>
+</section>
+<section id="working-directory" class="level2">
+<h2 class="anchored" data-anchor-id="working-directory">📂 Working Directory</h2>
+<p>R needs to know <strong>where to find files</strong> on your computer.</p>
+<p>Check your working directory:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/melaniss/Library/Mobile Documents/com~apple~CloudDocs/Documents/Mannheim/Lehre/Übung/Sessions"</code></pre>
+</div>
+</div>
+<p>Change your working directory (if needed):</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># setwd("~/Documents/R-Course")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>💡 <em>Tip: If you use an <strong>R Project</strong> in RStudio, the working directory will automatically be the project folder.</em></p>
+<hr>
+</section>
+<section id="reading-data" class="level2">
+<h2 class="anchored" data-anchor-id="reading-data">📥 Reading Data</h2>
+<p>The most common way to read a CSV file is with <code>read.csv</code></p>
+<p>Let’s try it with a sample UCDP dataset (replace with your path):</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ucdp_drc <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/ucdp_drc.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>📜 What is <code>stringsAsFactors</code>?</p>
+<p>In older versions of R (before R 4.0), whenever you loaded a CSV file or created a data frame, all text (strings) would automatically be converted into factors unless you told R not to.</p>
+<ul>
+<li>Factor = a categorical variable (like “Country”: Kenya, Sudan, Somalia)</li>
+<li>String = plain text</li>
+</ul>
+<p>This caused problems, functions would fail or behave strangely because they received a factor instead of a string.</p>
+<p>Since R 4.0 (April 2020), the default behavior changed. Now, R does not convert strings to factors by default.</p>
+<p>👉 But you’ll still see <code>stringsAsFactors = FALSE</code> in code for compatibility and good habit.</p>
+<hr>
+</section>
+<section id="inspecting-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="inspecting-the-data">🔍 Inspecting the Data</h2>
+<p>We can inspect the dataset with several functions:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ucdp_drc)       <span class="co"># first 6 rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      id             relid year active_year code_status type_of_violence
+1 561969 DRC-2024-3-934-41 2024        TRUE       Clear                3
+2 565256 DRC-2024-3-934-48 2024        TRUE       Clear                3
+3 511771  DRC-2024-3-934-2 2024        TRUE       Clear                3
+4 511488  DRC-2024-3-934-1 2024        TRUE       Clear                3
+5 562163 DRC-2024-3-934-42 2024        TRUE       Clear                3
+6 516017  DRC-2024-3-934-3 2024        TRUE       Clear                3
+  conflict_dset_id conflict_new_id                              conflict_name
+1               89             467 Government of DR Congo (Zaire) - Civilians
+2               89             467 Government of DR Congo (Zaire) - Civilians
+3               89             467 Government of DR Congo (Zaire) - Civilians
+4               89             467 Government of DR Congo (Zaire) - Civilians
+5               89             467 Government of DR Congo (Zaire) - Civilians
+6               89             467 Government of DR Congo (Zaire) - Civilians
+  dyad_dset_id dyad_new_id                                  dyad_name
+1           89         934 Government of DR Congo (Zaire) - Civilians
+2           89         934 Government of DR Congo (Zaire) - Civilians
+3           89         934 Government of DR Congo (Zaire) - Civilians
+4           89         934 Government of DR Congo (Zaire) - Civilians
+5           89         934 Government of DR Congo (Zaire) - Civilians
+6           89         934 Government of DR Congo (Zaire) - Civilians
+  side_a_dset_id side_a_new_id                         side_a side_b_dset_id
+1             89            89 Government of DR Congo (Zaire)           9999
+2             89            89 Government of DR Congo (Zaire)           9999
+3             89            89 Government of DR Congo (Zaire)           9999
+4             89            89 Government of DR Congo (Zaire)           9999
+5             89            89 Government of DR Congo (Zaire)           9999
+6             89            89 Government of DR Congo (Zaire)           9999
+  side_b_new_id    side_b number_of_sources
+1             1 Civilians                 1
+2             1 Civilians                 1
+3             1 Civilians                 1
+4             1 Civilians                 1
+5             1 Civilians                 1
+6             1 Civilians                 1
+                                                                                                                                source_article
+1 "Kivu Morning Post,2024-01-05,South Kivu: High tension in Kavumu the day after a civilian was beaten by a FARDC soldier - Kivu Morning Post"
+2                                                   "La Prunelle RDC,2024-01-04,Maniema : une femme tu√©e par un militaire FARDC √† Kabambare"
+3                                                                             "buniaactualit√©.cd,2024-01-20,Mahagi: a girl shot in Djalasiga"
+4                                         "Radio Okapi,2024-02-02,Bukavu : un militaire condamn√© √† mort pour meurtre d‚Äôune femme √† Panzi"
+5                                           "Kivu Morning Post,2024-02-23,Irumu: A FARDC soldier takes the life of a journalist near Mungamba"
+6                                            "Buniaactualit√©,2024-02-23,Deadly gear in Ituri: yesterday's joy, today's mourning and despair "
+       source_office source_date
+1  Kivu Morning Post  05/01/2024
+2    La Prunelle RDC  04/01/2024
+3 buniaactualit√©.cd  20/01/2024
+4        Radio Okapi  02/02/2024
+5  Kivu Morning Post  23/02/2024
+6    Buniaactualit√©  23/02/2024
+                                                                                                source_headline
+1 South Kivu: High tension in Kavumu the day after a civilian was beaten by a FARDC soldier - Kivu Morning Post
+2                                                 Maniema : une femme tu√©e par un militaire FARDC √† Kabambare
+3                                                                              Mahagi: a girl shot in Djalasiga
+4                                   Bukavu : un militaire condamn√© √† mort pour meurtre d‚Äôune femme √† Panzi
+5                                           Irumu: A FARDC soldier takes the life of a journalist near Mungamba
+6                                           Deadly gear in Ituri: yesterday's joy, today's mourning and despair
+                                                                                                    source_original
+1                                                                         Cikuru Mugaruka, one of the demonstrators
+2                                                           Action for the Restoration of Peace and Justice" (ARPJ)
+3                                                                                                  buniactualite.cd
+4                                                                                      The military court in Bukavu
+5 According to Josu√© Kathembo, general manager of Umoja community radio and television station (RTCU) broadcasting
+6                                                                 civil society Territorial Coordination of Mambasa
+  where_prec where_coordinates
+1          1    Kavumu village
+2          1    Lukolo village
+3          1 Djalasiga village
+4          1       Bukavu town
+5          1  Mungamba village
+6          1  Yolo mining area
+                                                                  where_description
+1                                                                            Kavumu
+2 Lukolo, Benyabemba group, Babuyu sector, Kabambare territory in Maniema province.
+3                                     Djalasiga shopping center in Mahagi territory
+4                in Panzi/Panzi-Kamagema in the commune of Ibanda, in Bukavu (town)
+5                                                                          Mungamba
+6                                          in Yolo, in the Babila Bakwanza chiefdom
+              adm_1               adm_2  latitude longitude
+1 Sud Kivu province    Kabare territory -2.290110  28.79105
+2  Maniema province Kabambare territory -4.933583  28.73333
+3    Ituri province    Mahagi territory  2.573500  30.54900
+4 Sud Kivu province    Bukavu territory -2.508333  28.86083
+5    Ituri province     Irumu territory  1.355640  29.56468
+6    Ituri province   Mambasa territory  1.068723  29.18143
+                     geom_wkt priogrid_gid          country country_id region
+1   POINT (28.79105 -2.29011)       126418 DR Congo (Zaire)        490 Africa
+2 POINT (28.733333 -4.933583)       122818 DR Congo (Zaire)        490 Africa
+3 POINT (30.549001 2.5735001)       133622 DR Congo (Zaire)        490 Africa
+4 POINT (28.860833 -2.508333)       125698 DR Congo (Zaire)        490 Africa
+5    POINT (29.56468 1.35564)       131460 DR Congo (Zaire)        490 Africa
+6  POINT (29.181426 1.068723)       131459 DR Congo (Zaire)        490 Africa
+  event_clarity date_prec              date_start                date_end
+1             1         1 2024-01-04 00:00:00.000 2024-01-04 00:00:00.000
+2             1         1 2024-01-04 00:00:00.000 2024-01-04 00:00:00.000
+3             1         1 2024-01-19 00:00:00.000 2024-01-19 00:00:00.000
+4             1         1 2024-01-30 00:00:00.000 2024-01-30 00:00:00.000
+5             1         1 2024-02-22 00:00:00.000 2024-02-22 00:00:00.000
+6             1         1 2024-02-22 00:00:00.000 2024-02-22 00:00:00.000
+  deaths_a deaths_b deaths_civilians deaths_unknown best high low gwnoa gwnob
+1        0        0                1              0    1    1   1   490    NA
+2        0        0                1              0    1    1   1   490    NA
+3        0        0                1              0    1    1   1   490    NA
+4        0        0                1              0    1    1   1   490    NA
+5        0        0                1              0    1    1   1   490    NA
+6        0        0                1              0    1    1   1   490    NA</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(ucdp_drc)       <span class="co"># last 6 rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>        id               relid year active_year code_status type_of_violence
+384 550242 DRC-2024-2-17833-40 2024        TRUE       Clear                2
+385 566306 DRC-2024-2-17833-74 2024        TRUE       Clear                2
+386 566134 DRC-2024-2-17833-72 2024        TRUE       Clear                2
+387 565181 DRC-2024-2-17833-69 2024        TRUE       Clear                2
+388 564800 DRC-2024-2-17833-68 2024        TRUE       Clear                2
+389 566260 DRC-2024-2-17833-73 2024        TRUE       Clear                2
+    conflict_dset_id conflict_new_id conflict_name dyad_dset_id dyad_new_id
+384            17833           16179     AFC - VDP        17833       17833
+385            17833           16179     AFC - VDP        17833       17833
+386            17833           16179     AFC - VDP        17833       17833
+387            17833           16179     AFC - VDP        17833       17833
+388            17833           16179     AFC - VDP        17833       17833
+389            17833           16179     AFC - VDP        17833       17833
+    dyad_name side_a_dset_id side_a_new_id side_a side_b_dset_id side_b_new_id
+384 AFC - VDP           8885          8885    AFC           8832          8832
+385 AFC - VDP           8885          8885    AFC           8832          8832
+386 AFC - VDP           8885          8885    AFC           8832          8832
+387 AFC - VDP           8885          8885    AFC           8832          8832
+388 AFC - VDP           8885          8885    AFC           8832          8832
+389 AFC - VDP           8885          8885    AFC           8832          8832
+    side_b number_of_sources
+384    VDP                 1
+385    VDP                 1
+386    VDP                 1
+387    VDP                 1
+388    VDP                 1
+389    VDP                 1
+                                                                                                                        source_article
+384                      "Actualite.cd,2024-10-23,RDC: la localit√© de Kalembe de nouveau occup√©e par le M23 apr√®s de rudes combats"
+385             "Kivu Morning Post,2024-10-24,Masisi: Fighting continues between M23 rebels and Wazalendo in the Bashali Mokoto group"
+386                               "Africa Research Bulletin: Political, Social and Cultural Series,2024-12-10,DR CONGO: M23 Offensive"
+387 "La Prunelle,2024-12-08,Rutshuru : Un enseignant tu√© par balle lors d‚Äôaffrontements entre les Wazalendo et le M23 √† Nyamilima"
+388                       "La Prunelle RDC,2024-12-24,Rutshuru: Un civil tu√© et plusieurs bless√©s lors des affrontements √† Bukombo"
+389                         "Kivu Morning Post,2024-12-26,Nyiragongo: Wazalendo repel an attack by the M23 on the Three Antennas axis"
+                                                      source_office source_date
+384                                                    Actualite.cd  23/10/2024
+385                                               Kivu Morning Post  24/10/2024
+386 Africa Research Bulletin: Political, Social and Cultural Series  10/12/2024
+387                                                     La Prunelle  08/12/2024
+388                                                 La Prunelle RDC  24/12/2024
+389                                               Kivu Morning Post  26/12/2024
+                                                                                              source_headline
+384                       RDC: la localit√© de Kalembe de nouveau occup√©e par le M23 apr√®s de rudes combats
+385                   Masisi: Fighting continues between M23 rebels and Wazalendo in the Bashali Mokoto group
+386                                                                                   DR CONGO: M23 Offensive
+387 Rutshuru : Un enseignant tu√© par balle lors d‚Äôaffrontements entre les Wazalendo et le M23 √† Nyamilima
+388                           Rutshuru: Un civil tu√© et plusieurs bless√©s lors des affrontements √† Bukombo
+389                               Nyiragongo: Wazalendo repel an attack by the M23 on the Three Antennas axis
+                                                                   source_original
+384 The head of the Kisimba group in the Walikale territory, Mwami Kabaki Alimasi,
+385           civil society source in Kalembe, speaking on condition of anonymity.
+386                                                              Mishapi Voice ARB
+387                                                                               
+388                                                                 local sources.
+389       Colonel Jean-Marie KAHANGIRO, commander of the Rapid Action Forces (FAR)
+    where_prec              where_coordinates
+384          1                  Ihula village
+385          2                Kalembe village
+386          4             Nord Kivu province
+387          1                 Nyamilima town
+388          1 Bukombo village and groupement
+389          2                      Goma town
+                                                  where_description
+384                              Ihula, in the locality of Balindu.
+385 Kikova, about ten kilometers from Kalembe, in Masisi territory.
+386                                                                
+387                                                                
+388                                                         Bukombo
+389  Trois Antennes axis in the Nyiragongo territory in North Kivu.
+                 adm_1                adm_2  latitude longitude
+384 Nord Kivu province   Walikale territory -0.976751  29.01667
+385 Nord Kivu province     Masisi territory -1.034441  28.94603
+386 Nord Kivu province                      -0.666667  28.75000
+387 Nord Kivu province   Rutshuru territory -0.883101  29.56652
+388 Nord Kivu province   Rutshuru territory -1.200822  29.13180
+389 Nord Kivu province Nyiragongo territory -1.693333  29.23389
+                       geom_wkt priogrid_gid          country country_id region
+384 POINT (29.016667 -0.976751)       128579 DR Congo (Zaire)        490 Africa
+385 POINT (28.946031 -1.034441)       127858 DR Congo (Zaire)        490 Africa
+386     POINT (28.75 -0.666667)       128578 DR Congo (Zaire)        490 Africa
+387 POINT (29.566521 -0.883101)       128580 DR Congo (Zaire)        490 Africa
+388 POINT (29.131795 -1.200822)       127859 DR Congo (Zaire)        490 Africa
+389 POINT (29.233889 -1.693333)       127139 DR Congo (Zaire)        490 Africa
+    event_clarity date_prec              date_start                date_end
+384             1         2 2024-10-20 00:00:00.000 2024-10-23 00:00:00.000
+385             1         2 2024-10-23 00:00:00.000 2024-10-24 00:00:00.000
+386             1         1 2024-11-15 00:00:00.000 2024-11-15 00:00:00.000
+387             1         1 2024-12-08 00:00:00.000 2024-12-08 00:00:00.000
+388             1         1 2024-12-23 00:00:00.000 2024-12-23 00:00:00.000
+389             1         1 2024-12-23 00:00:00.000 2024-12-23 00:00:00.000
+    deaths_a deaths_b deaths_civilians deaths_unknown best high low gwnoa gwnob
+384        0        0                8              0    8    8   8    NA    NA
+385        0        0                2              0    2    2   2    NA    NA
+386       25        0                0              0   25   25  25    NA    NA
+387        0        0                1              0    1    1   1    NA    NA
+388        0        0                1              0    1    1   1    NA    NA
+389        0        2                0              0    2   11   2    NA    NA</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(ucdp_drc)       <span class="co"># number of rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 389</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(ucdp_drc)       <span class="co"># number of columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 49</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ucdp_drc)      <span class="co"># variable names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "id"                "relid"             "year"             
+ [4] "active_year"       "code_status"       "type_of_violence" 
+ [7] "conflict_dset_id"  "conflict_new_id"   "conflict_name"    
+[10] "dyad_dset_id"      "dyad_new_id"       "dyad_name"        
+[13] "side_a_dset_id"    "side_a_new_id"     "side_a"           
+[16] "side_b_dset_id"    "side_b_new_id"     "side_b"           
+[19] "number_of_sources" "source_article"    "source_office"    
+[22] "source_date"       "source_headline"   "source_original"  
+[25] "where_prec"        "where_coordinates" "where_description"
+[28] "adm_1"             "adm_2"             "latitude"         
+[31] "longitude"         "geom_wkt"          "priogrid_gid"     
+[34] "country"           "country_id"        "region"           
+[37] "event_clarity"     "date_prec"         "date_start"       
+[40] "date_end"          "deaths_a"          "deaths_b"         
+[43] "deaths_civilians"  "deaths_unknown"    "best"             
+[46] "high"              "low"               "gwnoa"            
+[49] "gwnob"            </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ucdp_drc)        <span class="co"># structure</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   389 obs. of  49 variables:
+ $ id               : int  561969 565256 511771 511488 562163 516017 565179 563500 517211 519156 ...
+ $ relid            : chr  "DRC-2024-3-934-41" "DRC-2024-3-934-48" "DRC-2024-3-934-2" "DRC-2024-3-934-1" ...
+ $ year             : int  2024 2024 2024 2024 2024 2024 2024 2024 2024 2024 ...
+ $ active_year      : logi  TRUE TRUE TRUE TRUE TRUE TRUE ...
+ $ code_status      : chr  "Clear" "Clear" "Clear" "Clear" ...
+ $ type_of_violence : int  3 3 3 3 3 3 3 3 3 3 ...
+ $ conflict_dset_id : int  89 89 89 89 89 89 89 89 89 89 ...
+ $ conflict_new_id  : int  467 467 467 467 467 467 467 467 467 467 ...
+ $ conflict_name    : chr  "Government of DR Congo (Zaire) - Civilians" "Government of DR Congo (Zaire) - Civilians" "Government of DR Congo (Zaire) - Civilians" "Government of DR Congo (Zaire) - Civilians" ...
+ $ dyad_dset_id     : int  89 89 89 89 89 89 89 89 89 89 ...
+ $ dyad_new_id      : int  934 934 934 934 934 934 934 934 934 934 ...
+ $ dyad_name        : chr  "Government of DR Congo (Zaire) - Civilians" "Government of DR Congo (Zaire) - Civilians" "Government of DR Congo (Zaire) - Civilians" "Government of DR Congo (Zaire) - Civilians" ...
+ $ side_a_dset_id   : int  89 89 89 89 89 89 89 89 89 89 ...
+ $ side_a_new_id    : int  89 89 89 89 89 89 89 89 89 89 ...
+ $ side_a           : chr  "Government of DR Congo (Zaire)" "Government of DR Congo (Zaire)" "Government of DR Congo (Zaire)" "Government of DR Congo (Zaire)" ...
+ $ side_b_dset_id   : int  9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 ...
+ $ side_b_new_id    : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ side_b           : chr  "Civilians" "Civilians" "Civilians" "Civilians" ...
+ $ number_of_sources: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ source_article   : chr  "\"Kivu Morning Post,2024-01-05,South Kivu: High tension in Kavumu the day after a civilian was beaten by a FARD"| __truncated__ "\"La Prunelle RDC,2024-01-04,Maniema : une femme tu√©e par un militaire FARDC √† Kabambare\"" "\"buniaactualit√©.cd,2024-01-20,Mahagi: a girl shot in Djalasiga\"" "\"Radio Okapi,2024-02-02,Bukavu : un militaire condamn√© √† mort pour meurtre d‚Äôune femme √† Panzi\"" ...
+ $ source_office    : chr  "Kivu Morning Post" "La Prunelle RDC" "buniaactualit√©.cd" "Radio Okapi" ...
+ $ source_date      : chr  "05/01/2024" "04/01/2024" "20/01/2024" "02/02/2024" ...
+ $ source_headline  : chr  "South Kivu: High tension in Kavumu the day after a civilian was beaten by a FARDC soldier - Kivu Morning Post" "Maniema : une femme tu√©e par un militaire FARDC √† Kabambare" "Mahagi: a girl shot in Djalasiga" "Bukavu : un militaire condamn√© √† mort pour meurtre d‚Äôune femme √† Panzi" ...
+ $ source_original  : chr  "Cikuru Mugaruka, one of the demonstrators" "Action for the Restoration of Peace and Justice\" (ARPJ)" "buniactualite.cd" "The military court in Bukavu" ...
+ $ where_prec       : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ where_coordinates: chr  "Kavumu village" "Lukolo village" "Djalasiga village" "Bukavu town" ...
+ $ where_description: chr  "Kavumu" "Lukolo, Benyabemba group, Babuyu sector, Kabambare territory in Maniema province." "Djalasiga shopping center in Mahagi territory" "in Panzi/Panzi-Kamagema in the commune of Ibanda, in Bukavu (town)" ...
+ $ adm_1            : chr  "Sud Kivu province" "Maniema province" "Ituri province" "Sud Kivu province" ...
+ $ adm_2            : chr  "Kabare territory" "Kabambare territory" "Mahagi territory" "Bukavu territory" ...
+ $ latitude         : num  -2.29 -4.93 2.57 -2.51 1.36 ...
+ $ longitude        : num  28.8 28.7 30.5 28.9 29.6 ...
+ $ geom_wkt         : chr  "POINT (28.79105 -2.29011)" "POINT (28.733333 -4.933583)" "POINT (30.549001 2.5735001)" "POINT (28.860833 -2.508333)" ...
+ $ priogrid_gid     : int  126418 122818 133622 125698 131460 131459 126418 130019 124979 125698 ...
+ $ country          : chr  "DR Congo (Zaire)" "DR Congo (Zaire)" "DR Congo (Zaire)" "DR Congo (Zaire)" ...
+ $ country_id       : int  490 490 490 490 490 490 490 490 490 490 ...
+ $ region           : chr  "Africa" "Africa" "Africa" "Africa" ...
+ $ event_clarity    : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ date_prec        : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ date_start       : chr  "2024-01-04 00:00:00.000" "2024-01-04 00:00:00.000" "2024-01-19 00:00:00.000" "2024-01-30 00:00:00.000" ...
+ $ date_end         : chr  "2024-01-04 00:00:00.000" "2024-01-04 00:00:00.000" "2024-01-19 00:00:00.000" "2024-01-30 00:00:00.000" ...
+ $ deaths_a         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ deaths_b         : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ deaths_civilians : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ deaths_unknown   : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ best             : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ high             : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ low              : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ gwnoa            : int  490 490 490 490 490 490 490 490 490 490 ...
+ $ gwnob            : logi  NA NA NA NA NA NA ...</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ucdp_drc)    <span class="co"># summary statistics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       id            relid                year      active_year    
+ Min.   :510571   Length:389         Min.   :2024   Mode :logical  
+ 1st Qu.:532732   Class :character   1st Qu.:2024   FALSE:4        
+ Median :560949   Mode  :character   Median :2024   TRUE :385      
+ Mean   :550110                      Mean   :2024                  
+ 3rd Qu.:564905                      3rd Qu.:2024                  
+ Max.   :567453                      Max.   :2024                  
+                                                                   
+ code_status        type_of_violence conflict_dset_id conflict_new_id
+ Length:389         Min.   :1.00     Min.   :   89    Min.   :  265  
+ Class :character   1st Qu.:2.00     1st Qu.:  234    1st Qu.:  506  
+ Mode  :character   Median :3.00     Median :  283    Median :  506  
+                    Mean   :2.44     Mean   : 5545    Mean   : 7164  
+                    3rd Qu.:3.00     3rd Qu.: 8885    3rd Qu.:15044  
+                    Max.   :3.00     Max.   :17833    Max.   :16179  
+                                                                     
+ conflict_name       dyad_dset_id    dyad_new_id     dyad_name        
+ Length:389         Min.   :   89   Min.   :  934   Length:389        
+ Class :character   1st Qu.:  234   1st Qu.:  973   Class :character  
+ Mode  :character   Median : 7463   Median :15998   Mode  :character  
+                    Mean   : 7606   Mean   : 9944                     
+                    3rd Qu.:15998   3rd Qu.:17740                     
+                    Max.   :17833   Max.   :17833                     
+                                                                      
+ side_a_dset_id side_a_new_id     side_a          side_b_dset_id side_b_new_id 
+ Min.   :  89   Min.   :  89   Length:389         Min.   : 234   Min.   :   1  
+ 1st Qu.:  89   1st Qu.:  89   Class :character   1st Qu.:8885   1st Qu.:   1  
+ Median : 234   Median : 234   Mode  :character   Median :9999   Median :   1  
+ Mean   :2900   Mean   :2900                      Mean   :8557   Mean   :1874  
+ 3rd Qu.:7497   3rd Qu.:7497                      3rd Qu.:9999   3rd Qu.: 234  
+ Max.   :8885   Max.   :8885                      Max.   :9999   Max.   :8885  
+                                                                               
+    side_b          number_of_sources source_article     source_office     
+ Length:389         Min.   :1         Length:389         Length:389        
+ Class :character   1st Qu.:1         Class :character   Class :character  
+ Mode  :character   Median :1         Mode  :character   Mode  :character  
+                    Mean   :1                                              
+                    3rd Qu.:1                                              
+                    Max.   :1                                              
+                                                                           
+ source_date        source_headline    source_original      where_prec   
+ Length:389         Length:389         Length:389         Min.   :1.000  
+ Class :character   Class :character   Class :character   1st Qu.:1.000  
+ Mode  :character   Mode  :character   Mode  :character   Median :2.000  
+                                                          Mean   :1.761  
+                                                          3rd Qu.:2.000  
+                                                          Max.   :7.000  
+                                                                         
+ where_coordinates  where_description     adm_1              adm_2          
+ Length:389         Length:389         Length:389         Length:389        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+    latitude          longitude       geom_wkt          priogrid_gid   
+ Min.   :-8.70000   Min.   :12.70   Length:389         Min.   :117053  
+ 1st Qu.:-1.18000   1st Qu.:29.00   Class :character   1st Qu.:127859  
+ Median : 0.45013   Median :29.23   Mode  :character   Median :130018  
+ Mean   :-0.09802   Mean   :29.02                      Mean   :129493  
+ 3rd Qu.: 1.07358   3rd Qu.:29.60                      3rd Qu.:131459  
+ Max.   : 2.57350   Max.   :30.97                      Max.   :133622  
+                                                                       
+   country            country_id     region          event_clarity 
+ Length:389         Min.   :490   Length:389         Min.   :1.00  
+ Class :character   1st Qu.:490   Class :character   1st Qu.:1.00  
+ Mode  :character   Median :490   Mode  :character   Median :1.00  
+                    Mean   :490                      Mean   :1.09  
+                    3rd Qu.:490                      3rd Qu.:1.00  
+                    Max.   :490                      Max.   :2.00  
+                                                                   
+   date_prec      date_start          date_end            deaths_a      
+ Min.   :1.000   Length:389         Length:389         Min.   : 0.0000  
+ 1st Qu.:1.000   Class :character   Class :character   1st Qu.: 0.0000  
+ Median :1.000   Mode  :character   Mode  :character   Median : 0.0000  
+ Mean   :1.499                                         Mean   : 0.3933  
+ 3rd Qu.:2.000                                         3rd Qu.: 0.0000  
+ Max.   :5.000                                         Max.   :70.0000  
+                                                                        
+    deaths_b      deaths_civilians  deaths_unknown         best        
+ Min.   :0.0000   Min.   :  0.000   Min.   : 0.0000   Min.   :  0.000  
+ 1st Qu.:0.0000   1st Qu.:  0.000   1st Qu.: 0.0000   1st Qu.:  0.000  
+ Median :0.0000   Median :  1.000   Median : 0.0000   Median :  1.000  
+ Mean   :0.1697   Mean   :  5.828   Mean   : 0.2237   Mean   :  6.614  
+ 3rd Qu.:0.0000   3rd Qu.:  2.000   3rd Qu.: 0.0000   3rd Qu.:  3.000  
+ Max.   :9.0000   Max.   :932.000   Max.   :28.0000   Max.   :932.000  
+                                                                       
+      high              low              gwnoa      gwnob        
+ Min.   :  0.000   Min.   :  0.000   Min.   :490   Mode:logical  
+ 1st Qu.:  1.000   1st Qu.:  0.000   1st Qu.:490   NA's:389      
+ Median :  2.000   Median :  1.000   Median :490                 
+ Mean   :  7.504   Mean   :  5.679   Mean   :492                 
+ 3rd Qu.:  4.000   3rd Qu.:  3.000   3rd Qu.:490                 
+ Max.   :920.000   Max.   :932.000   Max.   :540                 
+                                     NA's   :272                 </code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="reading-acled-data" class="level2">
+<h2 class="anchored" data-anchor-id="reading-acled-data">📥 Reading ACLED Data</h2>
+<p>Now let’s load ACLED data:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>acled_drc <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/acled_drc.csv"</span>,<span class="at">sep=</span><span class="st">";"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Inspect it:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(acled_drc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  event_id_cnty       event_date year time_precision      disorder_type
+1      DRC34155 31 December 2024 2024              1 Political violence
+2      DRC34226 31 December 2024 2024              1 Political violence
+3      DRC34317 31 December 2024 2024              1 Political violence
+4      DRC34225 31 December 2024 2024              1 Political violence
+5      DRC34237 31 December 2024 2024              1 Political violence
+6      DRC34238 31 December 2024 2024              1 Political violence
+                  event_type                    sub_event_type
+1                    Battles                       Armed clash
+2                    Battles                       Armed clash
+3                      Riots                      Mob violence
+4                    Battles                       Armed clash
+5 Explosions/Remote violence Shelling/artillery/missile attack
+6 Explosions/Remote violence Shelling/artillery/missile attack
+                                                        actor1
+1      Bolembe Communal Militia (Democratic Republic of Congo)
+2 Boso Ngwanza Communal Militia (Democratic Republic of Congo)
+3                       Rioters (Democratic Republic of Congo)
+4                                ADF: Allied Democratic Forces
+5                                       M23: March 23 Movement
+6                                       M23: March 23 Movement
+                      assoc_actor_1           inter1
+1                                   Identity militia
+2                                   Identity militia
+3                                            Rioters
+4                                        Rebel group
+5 Military Forces of Rwanda (1994-)      Rebel group
+6 Military Forces of Rwanda (1994-)      Rebel group
+                                                       actor2
+1   Yalombuka Communal Militia (Democratic Republic of Congo)
+2  Boso Alama Communal Militia (Democratic Republic of Congo)
+3                      Rioters (Democratic Republic of Congo)
+4 Military Forces of the Democratic Republic of Congo (2019-)
+5 Military Forces of the Democratic Republic of Congo (2019-)
+6 Military Forces of the Democratic Republic of Congo (2019-)
+                                                        assoc_actor_2
+1                                                                    
+2                                                                    
+3                                                                    
+4                                                                    
+5 EPLC: Awakening of Patriots for the Liberation of Congo (Wazalendo)
+6 EPLC: Awakening of Patriots for the Liberation of Congo (Wazalendo)
+            inter2                       interaction civilian_targeting iso
+1 Identity militia Identity militia-Identity militia                    180
+2 Identity militia Identity militia-Identity militia                    180
+3          Rioters                   Rioters-Rioters                    180
+4     State forces          State forces-Rebel group                    180
+5     State forces          State forces-Rebel group                    180
+6     State forces          State forces-Rebel group                    180
+         region                      country    admin1    admin2  admin3
+1 Middle Africa Democratic Republic of Congo    Tshopo    Yahuma        
+2 Middle Africa Democratic Republic of Congo  Equateur Basankusu        
+3 Middle Africa Democratic Republic of Congo    Tshopo    Yahuma        
+4 Middle Africa Democratic Republic of Congo Nord-Kivu      Beni   Oicha
+5 Middle Africa Democratic Republic of Congo Nord-Kivu    Masisi Bahunde
+6 Middle Africa Democratic Republic of Congo Nord-Kivu    Masisi Bahunde
+    location latitude longitude geo_precision         source source_scale
+1     Yahuma   0.9555   23.5719             2 Mediacongo.net     National
+2 Boso-Alama   1.2500   20.3000             2    Radio Okapi     National
+3     Yahuma   0.9555   23.5719             2        7 Sur 7     National
+4   Kididiwe   0.5034   29.5034             2      Actualite     National
+5       Sake  -1.5713   29.0536             2 Mediacongo.net     National
+6     Kimoka  -1.5666   29.0500             1 Mediacongo.net     National
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          notes
+1 On 31 December 2024, residents of Bolembe clashed with Yalombuka residents around Bolembe, in the Yahuma territory, coded to the territory administrative center, Yahuma (Yahuma, Tshopo). 3 people were killed, including 2 on the Bolembe side, and several others injured, and 1 on the Yalombuka side, including 7 others injured. This incident stemmed from physical confrontation between two young men from the two communities. At least 117 houses and 18 huts were set on fire by residents of Yalombuka. Residents from Yalombuka fled to Yahuma center, while those from Bolembe fled to Liango.
+2                                                                                                                                                                                                                                                                                                                                       On 31 December 2024, Boso Ngwanza residents clashed with Boso Alama residents in the Bobende Mwera groupement, Gombalo sector, around Boso-Alama (Basankusu, Equateur ) over land dispute. 3 people were killed and several others injured. 10 houses were also burned.
+3                                                                                                                                                                                                                              On 31 December 2024, residents from Bolembe and Yalombuka clashed set barricades against each other between Bolembe and Yahuma (Yahuma, Tshopo), coded to Yahuma, causing human and material losses. At least 8 deaths and several injured (death count was likely to increase due to a high number of injured). A hundred of houses were burnt, and people displaced massively.
+4                                                                                                                                                                                                                                                                                                                                                                                                                                              On 31 December 2024, ADF attacked a FARDC position in Makua, near Kididiwe (Oicha, Beni, Nord-Kivu). Casualties unknown. FARDC successfully repelled ADF attack.
+5                                                                                                                                                                                                                                                                                                                                                                    On 31 December 2024, M23-RDF dropped bombs targeting FARDC-Wazalendo positions on Matcha hill, including Mayutsa and Kaduki neighborhoods of Sake (Bahunde, Masisi, Nord-Kivu), and Kimoka village (coded separately). Casualties unknown.
+6                                                                                                                                                                                                                                                                                                                                                                    On 31 December 2024, M23-RDF dropped bombs targeting FARDC-Wazalendo positions in Kimoka village (Bahunde, Masisi, Nord-Kivu), and Matcha hill, including Mayutsa and Kaduki neighborhoods of Sake (coded separately). Casualties unknown.
+  fatalities                 tags  timestamp
+1          3                      1736844949
+2          3                      1736844950
+3          8 crowd size=no report 1736844950
+4          0                      1753222459
+5          0                      1753222459
+6          0                      1753222459</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(acled_drc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "event_id_cnty"      "event_date"         "year"              
+ [4] "time_precision"     "disorder_type"      "event_type"        
+ [7] "sub_event_type"     "actor1"             "assoc_actor_1"     
+[10] "inter1"             "actor2"             "assoc_actor_2"     
+[13] "inter2"             "interaction"        "civilian_targeting"
+[16] "iso"                "region"             "country"           
+[19] "admin1"             "admin2"             "admin3"            
+[22] "location"           "latitude"           "longitude"         
+[25] "geo_precision"      "source"             "source_scale"      
+[28] "notes"              "fatalities"         "tags"              
+[31] "timestamp"         </code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="exercise-1" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1">🏗 Exercise 1</h2>
+<p>👉 <strong>Task:</strong></p>
+<ul>
+<li>Use <code>head()</code> to look at the first rows of <code>acled</code>.</li>
+<li>Use <code>names()</code> to list all column names.</li>
+<li>How many rows does <code>acled</code> have?</li>
+<li>Use <code>summary()</code> to look at one numeric variable (e.g.&nbsp;fatalities).</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">✅ Key Takeaways</h2>
+<ul>
+<li>Use <code>read.csv()</code> to import CSV files.</li>
+<li>Always <strong>inspect your data</strong> with <code>head()</code>, <code>names()</code>, and <code>str()</code>.</li>
+<li><strong>UCDP</strong> and <strong>ACLED</strong> have different levels of aggregation – this matters later for merging and analysis.</li>
+</ul>
+<hr>
+</section>
+<section id="exercise-3-mini-data-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3-mini-data-exploration">🏗 Exercise 3 – Mini Data Exploration</h2>
+<p>👉 <strong>Task:</strong><br>
+- Load <strong>both</strong> ucdp_drc and acled_drc datasets.<br>
+</p>
+<p>Find out:</p>
+<ul>
+<li>Which dataset has more <strong>rows</strong>?</li>
+<li>Which dataset has more <strong>variables</strong>?<br>
+</li>
+<li>Write your findings as a comment in the code.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

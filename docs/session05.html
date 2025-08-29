@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Conflict and Event Data - 5: Descriptive Statistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Conflict and Event Data</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session01.html" rel="" target="">
+ <span class="menu-text">1: Getting Started with R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session02.html" rel="" target="">
+ <span class="menu-text">2: Exploring Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session03.html" rel="" target="">
+ <span class="menu-text">3: Data Wrangling</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session04.html" rel="" target="">
+ <span class="menu-text">4: Merging Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./session05.html" rel="" target="" aria-current="page">
+ <span class="menu-text">5: Descriptive Statistics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session06.html" rel="" target="">
+ <span class="menu-text">6: Regressions</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">🎯 Learning Goals</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">📖 Introduction</a>
+  <ul class="collapse">
+  <li><a href="#example-ucdp-country-year-data" id="toc-example-ucdp-country-year-data" class="nav-link" data-scroll-target="#example-ucdp-country-year-data">🗂 Example: UCDP Country-Year Data</a></li>
+  <li><a href="#basic-summary-functions" id="toc-basic-summary-functions" class="nav-link" data-scroll-target="#basic-summary-functions">📊 Basic Summary Functions</a></li>
+  <li><a href="#grouped-summaries" id="toc-grouped-summaries" class="nav-link" data-scroll-target="#grouped-summaries">📚 Grouped Summaries</a></li>
+  <li><a href="#multiple-summary-stats-at-once" id="toc-multiple-summary-stats-at-once" class="nav-link" data-scroll-target="#multiple-summary-stats-at-once">📊 Multiple Summary Stats at Once</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">🏗 Exercise 2</a></li>
+  </ul></li>
+  <li><a href="#cross-tabulations" id="toc-cross-tabulations" class="nav-link" data-scroll-target="#cross-tabulations">🔍 Cross-Tabulations</a>
+  <ul class="collapse">
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3">🏗 Exercise 3</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#graphs" id="toc-graphs" class="nav-link" data-scroll-target="#graphs">Graphs</a></li>
+  <li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions">🔎 1) Distributions</a>
+  <ul class="collapse">
+  <li><a href="#histograms" id="toc-histograms" class="nav-link" data-scroll-target="#histograms">1.1 Histograms</a></li>
+  <li><a href="#density-smooth-distribution" id="toc-density-smooth-distribution" class="nav-link" data-scroll-target="#density-smooth-distribution">1.2 Density (smooth distribution)</a></li>
+  </ul></li>
+  <li><a href="#spread-shape" id="toc-spread-shape" class="nav-link" data-scroll-target="#spread-shape">📐 2) Spread &amp; Shape</a>
+  <ul class="collapse">
+  <li><a href="#standard-deviation-variance-iqr" id="toc-standard-deviation-variance-iqr" class="nav-link" data-scroll-target="#standard-deviation-variance-iqr">Standard deviation, variance, IQR:</a></li>
+  <li><a href="#variance" id="toc-variance" class="nav-link" data-scroll-target="#variance">Variance</a></li>
+  <li><a href="#interquartile-range-iqr" id="toc-interquartile-range-iqr" class="nav-link" data-scroll-target="#interquartile-range-iqr">Interquartile Range (IQR)</a></li>
+  <li><a href="#skewness-kurtosis-requires-moments" id="toc-skewness-kurtosis-requires-moments" class="nav-link" data-scroll-target="#skewness-kurtosis-requires-moments">Skewness &amp; kurtosis (requires <code>moments</code>):</a></li>
+  <li><a href="#skewness" id="toc-skewness" class="nav-link" data-scroll-target="#skewness">Skewness</a></li>
+  </ul></li>
+  <li><a href="#group-comparisons" id="toc-group-comparisons" class="nav-link" data-scroll-target="#group-comparisons">🏷 3) Group Comparisons</a>
+  <ul class="collapse">
+  <li><a href="#conflict-vs.-peace-meansmedians-of-gdp" id="toc-conflict-vs.-peace-meansmedians-of-gdp" class="nav-link" data-scroll-target="#conflict-vs.-peace-meansmedians-of-gdp">3.1 Conflict vs.&nbsp;Peace (means/medians of GDP)</a>
+  <ul class="collapse">
+  <li><a href="#how-to-read-a-boxplot" id="toc-how-to-read-a-boxplot" class="nav-link" data-scroll-target="#how-to-read-a-boxplot">How to Read a Boxplot</a></li>
+  <li><a href="#anatomy-of-a-boxplot" id="toc-anatomy-of-a-boxplot" class="nav-link" data-scroll-target="#anatomy-of-a-boxplot">Anatomy of a Boxplot</a></li>
+  <li><a href="#why-boxplots-are-useful-in-conflict-data" id="toc-why-boxplots-are-useful-in-conflict-data" class="nav-link" data-scroll-target="#why-boxplots-are-useful-in-conflict-data">Why Boxplots are Useful in Conflict Data</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#relationships-between-variables" id="toc-relationships-between-variables" class="nav-link" data-scroll-target="#relationships-between-variables">🔗 4) Relationships Between Variables</a>
+  <ul class="collapse">
+  <li><a href="#correlation-pearsonspearman" id="toc-correlation-pearsonspearman" class="nav-link" data-scroll-target="#correlation-pearsonspearman">4.1 Correlation (Pearson/Spearman)</a></li>
+  <li><a href="#scatterplot-gdp-vs-fatalities" id="toc-scatterplot-gdp-vs-fatalities" class="nav-link" data-scroll-target="#scatterplot-gdp-vs-fatalities">4.2 Scatterplot (GDP vs Fatalities)</a></li>
+  </ul></li>
+  <li><a href="#proportions-shares" id="toc-proportions-shares" class="nav-link" data-scroll-target="#proportions-shares">🧮 5) Proportions &amp; Shares</a>
+  <ul class="collapse">
+  <li><a href="#share-of-conflict-observations" id="toc-share-of-conflict-observations" class="nav-link" data-scroll-target="#share-of-conflict-observations">5.1 Share of conflict observations</a></li>
+  <li><a href="#share-of-total-fatalities-by-country" id="toc-share-of-total-fatalities-by-country" class="nav-link" data-scroll-target="#share-of-total-fatalities-by-country">5.2 Share of total fatalities by country</a></li>
+  </ul></li>
+  <li><a href="#time-series-exploration" id="toc-time-series-exploration" class="nav-link" data-scroll-target="#time-series-exploration">⏱ 6) Time Series Exploration</a>
+  <ul class="collapse">
+  <li><a href="#mean-gdp-per-capita-over-time" id="toc-mean-gdp-per-capita-over-time" class="nav-link" data-scroll-target="#mean-gdp-per-capita-over-time">6.1 Mean GDP per capita over time</a></li>
+  <li><a href="#total-fatalities-over-time" id="toc-total-fatalities-over-time" class="nav-link" data-scroll-target="#total-fatalities-over-time">6.2 Total fatalities over time</a></li>
+  </ul></li>
+  <li><a href="#cross-tabulations-1" id="toc-cross-tabulations-1" class="nav-link" data-scroll-target="#cross-tabulations-1">🗂 7) Cross-Tabulations</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">✅ Key Takeaways</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">5: Descriptive Statistics</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="learning-goals" class="level1">
+<h1>🎯 Learning Goals</h1>
+<p>By the end of this session, you will be able to:</p>
+<ul>
+<li>Produce <strong>summary statistics</strong> for conflict datasets<br>
+</li>
+<li>Understand <strong>univariate</strong> vs <strong>bivariate</strong> descriptive stats</li>
+</ul>
+<hr>
+</section>
+<section id="introduction" class="level1">
+<h1>📖 Introduction</h1>
+<p>Descriptive statistics answer the <strong>basic questions</strong>:</p>
+<ul>
+<li>📝 <em>What is the average number of deaths per year?</em></li>
+<li>📝 <em>Which country had the highest fatalities?</em></li>
+<li>📝 <em>How many conflict years are there per region?</em></li>
+</ul>
+<p>Before running regressions, <strong>always start here</strong>.</p>
+<hr>
+<section id="example-ucdp-country-year-data" class="level2">
+<h2 class="anchored" data-anchor-id="example-ucdp-country-year-data">🗂 Example: UCDP Country-Year Data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"dplyr"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">"moments"</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"countrycode"</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Install uninstalled packages</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(packages[<span class="sc">!</span>(packages <span class="sc">%in%</span> <span class="fu">installed.packages</span>())], install.packages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>list()</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load all packages to library</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(packages, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>)      </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+ [1] "lubridate" "forcats"   "stringr"   "dplyr"     "purrr"     "readr"    
+ [7] "tidyr"     "tibble"    "ggplot2"   "tidyverse" "stats"     "graphics" 
+[13] "grDevices" "utils"     "datasets"  "methods"   "base"     
+
+[[2]]
+ [1] "lubridate" "forcats"   "stringr"   "dplyr"     "purrr"     "readr"    
+ [7] "tidyr"     "tibble"    "ggplot2"   "tidyverse" "stats"     "graphics" 
+[13] "grDevices" "utils"     "datasets"  "methods"   "base"     
+
+[[3]]
+ [1] "moments"   "lubridate" "forcats"   "stringr"   "dplyr"     "purrr"    
+ [7] "readr"     "tidyr"     "tibble"    "ggplot2"   "tidyverse" "stats"    
+[13] "graphics"  "grDevices" "utils"     "datasets"  "methods"   "base"     
+
+[[4]]
+ [1] "countrycode" "moments"     "lubridate"   "forcats"     "stringr"    
+ [6] "dplyr"       "purrr"       "readr"       "tidyr"       "tibble"     
+[11] "ggplot2"     "tidyverse"   "stats"       "graphics"    "grDevices"  
+[16] "utils"       "datasets"    "methods"     "base"       </code></pre>
+</div>
+</div>
+<p>For this session we’ll use <strong>aggregated UCDP data</strong> (from Session 4):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"Data/combined.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+<section id="basic-summary-functions" class="level2">
+<h2 class="anchored" data-anchor-id="basic-summary-functions">📊 Basic Summary Functions</h2>
+<p>R has built-in summary functions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>best)  <span class="co"># summary stats for “best” fatalities</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      0      14     141    2260     943  772463 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data<span class="sc">$</span>best)     <span class="co"># mean</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2259.52</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(data<span class="sc">$</span>best)   <span class="co"># median</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 141</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(data<span class="sc">$</span>best)       <span class="co"># standard deviation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 26785.42</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(data<span class="sc">$</span>best)      <span class="co"># minimum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(data<span class="sc">$</span>best)      <span class="co"># maximum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 772463</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="grouped-summaries" class="level2">
+<h2 class="anchored" data-anchor-id="grouped-summaries">📚 Grouped Summaries</h2>
+<p>We often want stats <strong>per country</strong> or <strong>per year</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(iso3c) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_best =</span> <span class="fu">mean</span>(best, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 47 × 2
+   iso3c avg_best
+   &lt;chr&gt;    &lt;dbl&gt;
+ 1 AGO       952.
+ 2 BDI      1497.
+ 3 BEN        29 
+ 4 BFA      1914.
+ 5 BWA         1 
+ 6 CAF       548.
+ 7 CIV       153.
+ 8 CMR       351.
+ 9 COD      3872.
+10 COG       712.
+# ℹ 37 more rows</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="multiple-summary-stats-at-once" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-summary-stats-at-once">📊 Multiple Summary Stats at Once</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_deaths =</span> <span class="fu">mean</span>(best),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_deaths =</span> <span class="fu">sd</span>(best),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_deaths =</span> <span class="fu">sum</span>(best)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  avg_deaths sd_deaths total_deaths
+       &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+1      2260.    26785.      2042606</code></pre>
+</div>
+</div>
+<section id="exercise-2" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2">🏗 Exercise 2</h3>
+<p>👉 <strong>Task:</strong></p>
+<ol type="1">
+<li>Use <code>group_by()</code> and <code>summarise()</code> to compute:
+<ul>
+<li>Mean <code>deaths_civilians</code></li>
+<li>Total <code>best</code> deaths</li>
+<li>By <code>country</code> and by <code>year</code></li>
+</ul></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="cross-tabulations" class="level2">
+<h2 class="anchored" data-anchor-id="cross-tabulations">🔍 Cross-Tabulations</h2>
+<p>For <strong>categorical variables</strong>, we use <code>table()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>iso3c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+AGO BDI BEN BFA BWA CAF CIV CMR COD COG COM DJI DZA EGY ERI ETH GHA GIN GMB GNB 
+ 35  34   6   9   1  29  24  25  36  22   3  15  35  29  10  36  14  18   5   4 
+KEN LBR LBY LSO MAR MDG MLI MOZ MRT NAM NER NGA RWA SDN SEN SLE SOM SSD SWZ TCD 
+ 36  18  15   1   9   6  29  22  13   5  26  35  23  36  26  13  36  14   6  33 
+TGO TUN TZA UGA ZAF ZMB ZWE 
+  9  14  15  30  24   5  15 </code></pre>
+</div>
+</div>
+<p>If the ISO codes confuse you, convert them back to country names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">countrycode</span>(iso3c, <span class="st">"iso3c"</span>, <span class="st">"country.name"</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+                 Algeria                   Angola                    Benin 
+                      35                       35                        6 
+                Botswana             Burkina Faso                  Burundi 
+                       1                        9                       34 
+                Cameroon Central African Republic                     Chad 
+                      25                       29                       33 
+                 Comoros      Congo - Brazzaville         Congo - Kinshasa 
+                       3                       22                       36 
+           Côte d’Ivoire                 Djibouti                    Egypt 
+                      24                       15                       29 
+                 Eritrea                 Eswatini                 Ethiopia 
+                      10                        6                       36 
+                  Gambia                    Ghana                   Guinea 
+                       5                       14                       18 
+           Guinea-Bissau                    Kenya                  Lesotho 
+                       4                       36                        1 
+                 Liberia                    Libya               Madagascar 
+                      18                       15                        6 
+                    Mali               Mauritania                  Morocco 
+                      29                       13                        9 
+              Mozambique                  Namibia                    Niger 
+                      22                        5                       26 
+                 Nigeria                   Rwanda                  Senegal 
+                      35                       23                       26 
+            Sierra Leone                  Somalia             South Africa 
+                      13                       36                       24 
+             South Sudan                    Sudan                 Tanzania 
+                      14                       36                       15 
+                    Togo                  Tunisia                   Uganda 
+                       9                       14                       30 
+                  Zambia                 Zimbabwe 
+                       5                       15 </code></pre>
+</div>
+</div>
+<p>👉 If you create a dummy for <code>conflict</code> vs.&nbsp;<code>no conflict</code>, you can cross-tabulate:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example dummy</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>conflict_dummy <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>best <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>country, data<span class="sc">$</span>conflict_dummy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                          
+                            0  1
+  Algeria                   0 35
+  Angola                    2 33
+  Benin                     0  6
+  Botswana                  0  1
+  Burkina Faso              0  9
+  Burundi                   1 33
+  Cameroon                  5 20
+  Central African Republic  1 28
+  Chad                      0 33
+  Comoros                   0  3
+  Congo - Brazzaville       3 19
+  Congo - Kinshasa          0 36
+  Côte d’Ivoire             3 21
+  Djibouti                  1 14
+  Egypt                     0 29
+  Eritrea                   1  9
+  Eswatini                  0  6
+  Ethiopia                  0 36
+  Gambia                    1  4
+  Ghana                     0 14
+  Guinea                    1 17
+  Guinea-Bissau             1  3
+  Kenya                     0 36
+  Lesotho                   0  1
+  Liberia                   0 18
+  Libya                     0 15
+  Madagascar                0  6
+  Mali                      1 28
+  Mauritania                2 11
+  Morocco                   0  9
+  Mozambique                0 22
+  Namibia                   2  3
+  Niger                     0 26
+  Nigeria                   0 35
+  Rwanda                    1 22
+  Senegal                   2 24
+  Sierra Leone              0 13
+  Somalia                   0 36
+  South Africa              3 21
+  South Sudan               0 14
+  Sudan                     0 36
+  Tanzania                  1 14
+  Togo                      0  9
+  Tunisia                   0 14
+  Uganda                    1 29
+  Zambia                    0  5
+  Zimbabwe                  4 11</code></pre>
+</div>
+</div>
+<hr>
+<section id="exercise-3" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3">🏗 Exercise 3</h3>
+<p>👉 <strong>Task:</strong><br>
+- Create a dummy variable <code>high_conflict</code> (1 if best deaths &gt; 30, else 0).<br>
+- Use <code>table()</code> to count <strong>how many country-years</strong> are <code>high_conflict</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+</section>
+</section>
+<section id="graphs" class="level1">
+<h1>Graphs</h1>
+</section>
+<section id="distributions" class="level1">
+<h1>🔎 1) Distributions</h1>
+<section id="histograms" class="level2">
+<h2 class="anchored" data-anchor-id="histograms">1.1 Histograms</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>gdp_pc,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">20</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"GDP per capita – Distribution"</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"GDP per capita (USD)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="session05_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Used for continuous variables (e.g., GDP, fatalities, age).</li>
+<li>Data are split into bins (intervals) and counts per bin are shown.</li>
+<li>The order is fixed (left-to-right, increasing values).</li>
+</ul>
+</section>
+<section id="density-smooth-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="density-smooth-distribution">1.2 Density (smooth distribution)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">density</span>(data<span class="sc">$</span>gdp_pc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d, <span class="at">main =</span> <span class="st">"GDP per capita – Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="session05_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="spread-shape" class="level1">
+<h1>📐 2) Spread &amp; Shape</h1>
+<section id="standard-deviation-variance-iqr" class="level3">
+<h3 class="anchored" data-anchor-id="standard-deviation-variance-iqr">Standard deviation, variance, IQR:</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(data<span class="sc">$</span>gdp_pc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1561.315</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(data<span class="sc">$</span>gdp_pc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2437703</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(data<span class="sc">$</span>gdp_pc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1322.617</code></pre>
+</div>
+</div>
+</section>
+<section id="variance" class="level3">
+<h3 class="anchored" data-anchor-id="variance">Variance</h3>
+<p><strong>Definition:</strong><br>
+Variance measures <strong>how far</strong> each value in a dataset is from the <strong>mean</strong>.<br>
+It’s calculated as:</p>
+<p><span class="math inline">\(\text{Variance} = \frac{\\sum (x_i - \bar{x})^2}{n - 1}\)</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(x_i\)</span> = each observation</li>
+<li><span class="math inline">\(\bar{x}\)</span> = mean</li>
+<li><span class="math inline">\(n\)</span> = number of observations</li>
+</ul>
+<p><strong>Key points:</strong></p>
+<ul>
+<li>Larger variance → values are more spread out.</li>
+<li>Small variance → values cluster around the mean.</li>
+<li>Units: <strong>squared</strong> (e.g., USD²), which is why we often use the <strong>standard deviation</strong> (square root of variance) for interpretation.</li>
+</ul>
+</section>
+<section id="interquartile-range-iqr" class="level3">
+<h3 class="anchored" data-anchor-id="interquartile-range-iqr">Interquartile Range (IQR)</h3>
+<p><strong>Definition:</strong><br>
+The IQR measures the range covered by the <strong>middle 50%</strong> of the data.<br>
+It’s the difference between:</p>
+<ul>
+<li><strong>Q3 (75th percentile)</strong> = value below which 75% of data fall</li>
+<li><strong>Q1 (25th percentile)</strong> = value below which 25% of data fall</li>
+</ul>
+<p><span class="math inline">\(\text{IQR} = Q3 - Q1\)</span></p>
+<p><strong>Key points:</strong></p>
+<ul>
+<li>Robust to <strong>outliers</strong> — ignores the extreme top and bottom 25%.</li>
+<li>Great for skewed data (like fatalities in conflict).</li>
+</ul>
+</section>
+<section id="skewness-kurtosis-requires-moments" class="level3">
+<h3 class="anchored" data-anchor-id="skewness-kurtosis-requires-moments">Skewness &amp; kurtosis (requires <code>moments</code>):</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skewness</span>(data<span class="sc">$</span>gdp_pc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.716862</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kurtosis</span>(data<span class="sc">$</span>gdp_pc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13.92353</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skewness</span>(data<span class="sc">$</span>best, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 26.72801</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kurtosis</span>(data<span class="sc">$</span>best, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 760.0183</code></pre>
+</div>
+</div>
+</section>
+<section id="skewness" class="level3">
+<h3 class="anchored" data-anchor-id="skewness">Skewness</h3>
+<p><strong>Definition:</strong><br>
+Skewness measures the <strong>asymmetry</strong> of a distribution.</p>
+<ul>
+<li><strong>Skewness = 0</strong> → perfectly symmetric (bell curve)</li>
+<li><strong>Skewness &gt; 0</strong> → <strong>right-skewed</strong>: long tail on the right (common in GDP and fatalities)</li>
+<li><strong>Skewness &lt; 0</strong> → <strong>left-skewed</strong>: long tail on the left</li>
+</ul>
+<p><strong>Why it matters in conflict research:</strong></p>
+<ul>
+<li>Fatalities: Many observations are <strong>0 or low</strong>, but a few wars cause extremely high counts → <strong>right-skew</strong>.</li>
+<li>GDP: Most countries are in the lower range, but a few are very rich → <strong>right-skew</strong>.</li>
+</ul>
+<p><strong>Interpretation tip:</strong></p>
+<ul>
+<li>Right-skew (skewness &gt; 0) is common in GDP/casualty data.<br>
+</li>
+<li>IQR is robust to outliers.</li>
+</ul>
+<p>Right-skew &amp; heavy tails in fatalities:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>best,</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">30</span>,</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Conflict Fatalities (Best) – Distribution"</span>,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Fatalities"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="session05_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>In a right skewed distribution, the mean is greater than the median.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data<span class="sc">$</span>best)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2259.52</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(data<span class="sc">$</span>best)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 141</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="group-comparisons" class="level1">
+<h1>🏷 3) Group Comparisons</h1>
+<section id="conflict-vs.-peace-meansmedians-of-gdp" class="level2">
+<h2 class="anchored" data-anchor-id="conflict-vs.-peace-meansmedians-of-gdp">3.1 Conflict vs.&nbsp;Peace (means/medians of GDP)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(conflict) <span class="sc">%&gt;%</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> dplyr<span class="sc">::</span><span class="fu">n</span>(),</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_gdp =</span> <span class="fu">mean</span>(gdp_pc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_gdp =</span> <span class="fu">median</span>(gdp_pc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_gdp =</span> <span class="fu">sd</span>(gdp_pc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  conflict           n mean_gdp median_gdp sd_gdp
+  &lt;fct&gt;          &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+1 Minor Conflict   417    1431.       914.  1493.
+2 Major Conflict   218    1185.       739.  1425.
+3 &lt;NA&gt;             269    1869.      1320.  1693.</code></pre>
+</div>
+</div>
+<p>Boxplot (GDP by conflict status):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(gdp_pc <span class="sc">~</span> conflict, <span class="at">data =</span> data,</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"GDP per capita by Conflict Status"</span>,</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Conflict (0=no, 1=yes)"</span>, <span class="at">ylab =</span> <span class="st">"GDP per capita"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="session05_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="how-to-read-a-boxplot" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-read-a-boxplot">How to Read a Boxplot</h3>
+<p>A <strong>boxplot</strong> is a compact way to show: - <strong>Center</strong> (median) - <strong>Spread</strong> (IQR) - <strong>Tails</strong> (minimum &amp; maximum within 1.5×IQR) - <strong>Outliers</strong> (points beyond the whiskers)</p>
+<hr>
+</section>
+<section id="anatomy-of-a-boxplot" class="level3">
+<h3 class="anchored" data-anchor-id="anatomy-of-a-boxplot">Anatomy of a Boxplot</h3>
+<p><img src="https://r4np.com/images/chapter_08_img/boxplot_anatomy.png" class="img-fluid" alt="Boxplot Anatomy"> <em>(Image Source <a href="https://bookdown.org/daniel_dauber_io/r4np_book/descriptive-statistics.html">Daniel Dauber</a>)</em></p>
+<ol type="1">
+<li><strong>Box</strong> → spans from <strong>Q1</strong> (25th percentile) to <strong>Q3</strong> (75th percentile)
+<ul>
+<li><strong>IQR</strong> = Q3 − Q1</li>
+</ul></li>
+<li><strong>Horizontal line in box</strong> → <strong>median</strong> (50th percentile)</li>
+<li><strong>Whiskers</strong> → extend to smallest/largest value <strong>within</strong> 1.5 × IQR from the box</li>
+<li><strong>Dots outside whiskers</strong> → <strong>outliers</strong> (unusually high/low values)</li>
+</ol>
+</section>
+<section id="why-boxplots-are-useful-in-conflict-data" class="level3">
+<h3 class="anchored" data-anchor-id="why-boxplots-are-useful-in-conflict-data">Why Boxplots are Useful in Conflict Data</h3>
+<ul>
+<li>Show <strong>skewness</strong> visually:
+<ul>
+<li>If the median is closer to the bottom of the box → right-skewed</li>
+<li>If whiskers are uneven → asymmetry</li>
+</ul></li>
+<li>Highlight <strong>outliers</strong>:
+<ul>
+<li>Big wars or massacres will appear as dots far above the whisker</li>
+</ul></li>
+<li>Compare <strong>groups</strong> side-by-side:
+<ul>
+<li>Conflict vs no-conflict</li>
+<li>Different income groups</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="relationships-between-variables" class="level1">
+<h1>🔗 4) Relationships Between Variables</h1>
+<section id="correlation-pearsonspearman" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-pearsonspearman">4.1 Correlation (Pearson/Spearman)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: best is count; Spearman (rank) is robust</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data<span class="sc">$</span>gdp_pc, data<span class="sc">$</span>best,</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">use =</span> <span class="st">"complete.obs"</span>, <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.2612842</code></pre>
+</div>
+</div>
+<ul>
+<li><strong><code>method = "spearman"</code></strong> → Use <strong>Spearman’s rank correlation</strong>, which:
+<ul>
+<li>Does <strong>not</strong> assume the variables are normally distributed<br>
+</li>
+<li>Measures how well the relationship between two variables can be described by a <strong>monotonic function</strong> (increasing or decreasing)<br>
+</li>
+<li>Uses <strong>ranks</strong> instead of actual values, making it robust to outliers and skewness.</li>
+</ul></li>
+</ul>
+<p><strong>How Spearman’s correlation works</strong></p>
+<ol type="1">
+<li>Rank all values of <strong>GDP per capita</strong> from lowest to highest.<br>
+</li>
+<li>Rank all values of <strong>fatalities</strong> from lowest to highest.<br>
+</li>
+<li>Compare the similarity of these rankings:
+<ul>
+<li>If rich countries <em>tend to</em> have more fatalities → positive correlation<br>
+</li>
+<li>If rich countries <em>tend to</em> have fewer fatalities → negative correlation<br>
+</li>
+</ul></li>
+<li>Produce a correlation coefficient <code>ρ</code> between <strong>−1</strong> and <strong>+1</strong>.</li>
+</ol>
+<ul>
+<li><strong>Value = −0.26</strong> → weak to moderate <strong>negative</strong> correlation<br>
+→ As GDP per capita <strong>increases</strong>, fatalities <strong>tend to decrease</strong> (but not perfectly).<br>
+</li>
+<li><strong>Magnitude</strong>:
+<ul>
+<li>0.0 to ±0.3 → weak<br>
+</li>
+<li>±0.3 to ±0.6 → moderate<br>
+</li>
+<li>±0.6 to ±1.0 → strong<br>
+</li>
+</ul></li>
+<li><strong>Sign</strong>:
+<ul>
+<li>Positive → variables tend to move in the <strong>same</strong> direction<br>
+</li>
+<li>Negative → variables tend to move in <strong>opposite</strong> directions</li>
+</ul></li>
+</ul>
+<p>Always check a <strong>scatterplot</strong> to visually confirm:</p>
+</section>
+<section id="scatterplot-gdp-vs-fatalities" class="level2">
+<h2 class="anchored" data-anchor-id="scatterplot-gdp-vs-fatalities">4.2 Scatterplot (GDP vs Fatalities)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data<span class="sc">$</span>gdp_pc, data<span class="sc">$</span>best,</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"GDP per capita (USD)"</span>,</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Conflict Fatalities (Best)"</span>,</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"GDP vs Fatalities"</span>,</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="session05_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Optional: add a simple trend line:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data<span class="sc">$</span>gdp_pc, data<span class="sc">$</span>best,</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"GDP per capita (USD)"</span>,</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Conflict Fatalities (Best)"</span>,</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"GDP vs Fatalities"</span>,</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(best <span class="sc">~</span> gdp_pc, <span class="at">data =</span> data), <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="session05_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="proportions-shares" class="level1">
+<h1>🧮 5) Proportions &amp; Shares</h1>
+<section id="share-of-conflict-observations" class="level2">
+<h2 class="anchored" data-anchor-id="share-of-conflict-observations">5.1 Share of conflict observations</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data<span class="sc">$</span>conflict <span class="sc">==</span> <span class="st">"Minor Conflict"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6566929</code></pre>
+</div>
+</div>
+</section>
+<section id="share-of-total-fatalities-by-country" class="level2">
+<h2 class="anchored" data-anchor-id="share-of-total-fatalities-by-country">5.2 Share of total fatalities by country</h2>
+<p>Sometimes we want to know <strong>how much each country contributes</strong> to the <strong>total fatalities in our dataset</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>country_shares <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_best =</span> <span class="fu">sum</span>(best, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">share =</span> total_best <span class="sc">/</span> <span class="fu">sum</span>(total_best))</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>country_shares</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 47 × 3
+   country                  total_best       share
+   &lt;chr&gt;                         &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Algeria                       21247 0.0104     
+ 2 Angola                        33334 0.0163     
+ 3 Benin                           174 0.0000852  
+ 4 Botswana                          1 0.000000490
+ 5 Burkina Faso                  17223 0.00843    
+ 6 Burundi                       50892 0.0249     
+ 7 Cameroon                       8778 0.00430    
+ 8 Central African Republic      15884 0.00778    
+ 9 Chad                          11427 0.00559    
+10 Comoros                         125 0.0000612  
+# ℹ 37 more rows</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="time-series-exploration" class="level1">
+<h1>⏱ 6) Time Series Exploration</h1>
+<section id="mean-gdp-per-capita-over-time" class="level2">
+<h2 class="anchored" data-anchor-id="mean-gdp-per-capita-over-time">6.1 Mean GDP per capita over time</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_gdp =</span> <span class="fu">mean</span>(gdp_pc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 36 × 2
+    year mean_gdp
+   &lt;dbl&gt;    &lt;dbl&gt;
+ 1  1989     NaN 
+ 2  1990    1338.
+ 3  1991    1110.
+ 4  1992    1065.
+ 5  1993    1061.
+ 6  1994    1134.
+ 7  1995    1118.
+ 8  1996    1180.
+ 9  1997    1118.
+10  1998    1151.
+# ℹ 26 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="total-fatalities-over-time" class="level2">
+<h2 class="anchored" data-anchor-id="total-fatalities-over-time">6.2 Total fatalities over time</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_fatalities =</span> <span class="fu">sum</span>(best, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 36 × 2
+    year total_fatalities
+   &lt;dbl&gt;            &lt;dbl&gt;
+ 1  1989            41079
+ 2  1990            72869
+ 3  1991            34097
+ 4  1992            18597
+ 5  1993            41102
+ 6  1994           792034
+ 7  1995            20992
+ 8  1996            64787
+ 9  1997            47463
+10  1998            36168
+# ℹ 26 more rows</code></pre>
+</div>
+</div>
+<p>Simple line plots:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>by_year <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_fatalities =</span> <span class="fu">sum</span>(best, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">mean_gdp =</span> <span class="fu">mean</span>(gdp_pc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(by_year<span class="sc">$</span>year, by_year<span class="sc">$</span>total_fatalities, <span class="at">type =</span> <span class="st">"b"</span>,</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Year"</span>, <span class="at">ylab =</span> <span class="st">"Total Fatalities (Best)"</span>,</span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Fatalities Over Time"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="session05_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="cross-tabulations-1" class="level1">
+<h1>🗂 7) Cross-Tabulations</h1>
+<p>Conflict by gdp group:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(data<span class="sc">$</span>gdp, data<span class="sc">$</span>conflict)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+         Minor Conflict Major Conflict
+  low               217            135
+  middle            118             59
+  high               56             15</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(tab, <span class="at">margin =</span> <span class="dv">1</span>)  <span class="co"># row proportions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+         Minor Conflict Major Conflict
+  low         0.6164773      0.3835227
+  middle      0.6666667      0.3333333
+  high        0.7887324      0.2112676</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="key-takeaways" class="level1">
+<h1>✅ Key Takeaways</h1>
+<ul>
+<li>Start analysis with <strong>descriptive stats</strong> (mean, median, total, etc.)</li>
+<li>Use <code>group_by()</code> + <code>summarise()</code> to create <strong>aggregated tables</strong></li>
+<li>Use <code>table()</code> for categorical variables</li>
+<li>Simple plots (boxplots, barplots) help reveal data issues</li>
+<li>Look at <strong>distribution</strong> and <strong>spread</strong> (histograms, SD, IQR)</li>
+<li>Compare <strong>groups</strong> (conflict vs peace, income groups)</li>
+<li>Look at <strong>relationships</strong> (correlation, scatterplots)</li>
+<li>Summarize <strong>trends over time</strong></li>
+<li>Use <strong>cross-tabs</strong> for categorical comparisons</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

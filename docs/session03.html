@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Conflict and Event Data - 3: Data Wrangling</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Conflict and Event Data</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session01.html" rel="" target="">
+ <span class="menu-text">1: Getting Started with R</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session02.html" rel="" target="">
+ <span class="menu-text">2: Exploring Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./session03.html" rel="" target="" aria-current="page">
+ <span class="menu-text">3: Data Wrangling</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session04.html" rel="" target="">
+ <span class="menu-text">4: Merging Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session05.html" rel="" target="">
+ <span class="menu-text">5: Descriptive Statistics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session06.html" rel="" target="">
+ <span class="menu-text">6: Regressions</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">🎯 Learning Goals</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">📖 Introduction</a>
+  <ul class="collapse">
+  <li><a href="#missing-values-in-r" id="toc-missing-values-in-r" class="nav-link" data-scroll-target="#missing-values-in-r">🧹 Missing Values in R</a>
+  <ul class="collapse">
+  <li><a href="#dealing-with-missing-values" id="toc-dealing-with-missing-values" class="nav-link" data-scroll-target="#dealing-with-missing-values">⚠️ Dealing with Missing Values</a></li>
+  </ul></li>
+  <li><a href="#renaming-columns" id="toc-renaming-columns" class="nav-link" data-scroll-target="#renaming-columns">✏️ Renaming Columns</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">🏗 Exercise 1</a></li>
+  </ul></li>
+  <li><a href="#recoding-values" id="toc-recoding-values" class="nav-link" data-scroll-target="#recoding-values">🔄 Recoding Values</a></li>
+  <li><a href="#create-new-variables" id="toc-create-new-variables" class="nav-link" data-scroll-target="#create-new-variables">🔄 Create new variables</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">🏗 Exercise 2</a></li>
+  <li><a href="#base-r-subsetting" id="toc-base-r-subsetting" class="nav-link" data-scroll-target="#base-r-subsetting">Base R Subsetting</a></li>
+  <li><a href="#base-r-logical-filtering" id="toc-base-r-logical-filtering" class="nav-link" data-scroll-target="#base-r-logical-filtering">Base R Logical Filtering</a></li>
+  </ul></li>
+  <li><a href="#dplyr-a-cleaner-way" id="toc-dplyr-a-cleaner-way" class="nav-link" data-scroll-target="#dplyr-a-cleaner-way">🔥 <code>dplyr</code>: A Cleaner Way</a>
+  <ul class="collapse">
+  <li><a href="#select-columns" id="toc-select-columns" class="nav-link" data-scroll-target="#select-columns">Select Columns</a></li>
+  <li><a href="#filter-rows" id="toc-filter-rows" class="nav-link" data-scroll-target="#filter-rows">Filter Rows</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3">🏗 Exercise 3</a></li>
+  </ul></li>
+  <li><a href="#arrange-sort" id="toc-arrange-sort" class="nav-link" data-scroll-target="#arrange-sort">Arrange (Sort)</a></li>
+  <li><a href="#slice" id="toc-slice" class="nav-link" data-scroll-target="#slice">Slice</a></li>
+  <li><a href="#combining-verbs-with-pipes" id="toc-combining-verbs-with-pipes" class="nav-link" data-scroll-target="#combining-verbs-with-pipes">Combining Verbs with Pipes</a></li>
+  <li><a href="#mean-mode-median" id="toc-mean-mode-median" class="nav-link" data-scroll-target="#mean-mode-median">Mean, Mode, Median</a>
+  <ul class="collapse">
+  <li><a href="#generate-some-proportional-overview-count" id="toc-generate-some-proportional-overview-count" class="nav-link" data-scroll-target="#generate-some-proportional-overview-count">Generate some proportional overview: <code>count()</code></a></li>
+  <li><a href="#sort-dataset-combination-of-select-and-everything" id="toc-sort-dataset-combination-of-select-and-everything" class="nav-link" data-scroll-target="#sort-dataset-combination-of-select-and-everything">Sort dataset: Combination of <code>select()</code> and <code>everything()</code></a></li>
+  </ul></li>
+  <li><a href="#what-is-a-tibble" id="toc-what-is-a-tibble" class="nav-link" data-scroll-target="#what-is-a-tibble">📦 What is a Tibble?</a>
+  <ul class="collapse">
+  <li><a href="#tibble-vs.-data-frame" id="toc-tibble-vs.-data-frame" class="nav-link" data-scroll-target="#tibble-vs.-data-frame">🔍 Tibble vs.&nbsp;Data Frame</a></li>
+  <li><a href="#creating-a-tibble" id="toc-creating-a-tibble" class="nav-link" data-scroll-target="#creating-a-tibble">📜 Creating a Tibble</a></li>
+  <li><a href="#converting-between-data-frame-and-tibble" id="toc-converting-between-data-frame-and-tibble" class="nav-link" data-scroll-target="#converting-between-data-frame-and-tibble">🔄 Converting Between Data Frame and Tibble</a></li>
+  <li><a href="#why-use-tibbles" id="toc-why-use-tibbles" class="nav-link" data-scroll-target="#why-use-tibbles">✅ Why Use Tibbles?</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">🏗 Exercise</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">3: Data Wrangling</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="learning-goals" class="level1">
+<h1>🎯 Learning Goals</h1>
+<p>By the end of this session, you will be able to:</p>
+<ul>
+<li>Handle missing values (<code>NA</code>)</li>
+<li>Rename, recode, and transform variables</li>
+<li>Understand the difference between <strong>characters</strong>, <strong>factors</strong>, and <strong>numbers</strong></li>
+<li>Clean conflict datasets (UCDP/ACLED) for analysis</li>
+</ul>
+<div class="cell" data-warnings="false">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We will use the following code to install all packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">"dplyr"</span>, <span class="st">"modeest"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Install uninstalled packages</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(packages[<span class="sc">!</span>(packages <span class="sc">%in%</span> <span class="fu">installed.packages</span>())], install.packages)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load all packages to library</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(packages, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="introduction" class="level1">
+<h1>📖 Introduction</h1>
+<p><strong>Real data is messy.</strong><br>
+The UCDP Data you worked with so far, was pre-filtered georeferenced event data. Each row resembled an individual violent event. We will now work with a slightly different UCDP Data that collect data on a more aggregate level.</p>
+<p>Before we can analyze the data, we need to <strong>clean</strong> the data:</p>
+<ul>
+<li>Remove or fill in missing values</li>
+<li>Rename confusing column names</li>
+<li>Convert strings to numbers (or vice versa)</li>
+<li>Recode values into categories</li>
+</ul>
+<hr>
+<section id="missing-values-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="missing-values-in-r">🧹 Missing Values in R</h2>
+<p>Missing values in R are represented by <code>NA</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="cn">NA</span>, <span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">8</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  5 10 NA  3 NA  8</code></pre>
+</div>
+</div>
+<p>Check for missing values:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE  TRUE FALSE  TRUE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(data))   <span class="co"># count how many NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<hr>
+<section id="dealing-with-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="dealing-with-missing-values">⚠️ Dealing with Missing Values</h3>
+<p>By default, many functions <strong>fail if there are NA’s</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data)   <span class="co"># will produce NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>Use <code>na.rm=TRUE</code> to ignore NA’s:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.5</code></pre>
+</div>
+</div>
+<p>Delete missing values (but be very careful with that)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data.na <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="renaming-columns" class="level2">
+<h2 class="anchored" data-anchor-id="renaming-columns">✏️ Renaming Columns</h2>
+<p>Pre-defined datasets sometimes have <strong>ugly column names</strong>.</p>
+<p>Let’s load our new ucdp data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"Data/GEDEvent_v25_1.rds"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ucdp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "id"                "relid"             "year"             
+ [4] "active_year"       "code_status"       "type_of_violence" 
+ [7] "conflict_dset_id"  "conflict_new_id"   "conflict_name"    
+[10] "dyad_dset_id"      "dyad_new_id"       "dyad_name"        
+[13] "side_a_dset_id"    "side_a_new_id"     "side_a"           
+[16] "side_b_dset_id"    "side_b_new_id"     "side_b"           
+[19] "number_of_sources" "source_article"    "source_office"    
+[22] "source_date"       "source_headline"   "source_original"  
+[25] "where_prec"        "where_coordinates" "where_description"
+[28] "adm_1"             "adm_2"             "latitude"         
+[31] "longitude"         "geom_wkt"          "priogrid_gid"     
+[34] "country"           "country_id"        "region"           
+[37] "event_clarity"     "date_prec"         "date_start"       
+[40] "date_end"          "deaths_a"          "deaths_b"         
+[43] "deaths_civilians"  "deaths_unknown"    "best"             
+[46] "high"              "low"               "gwnoa"            
+[49] "gwnob"            </code></pre>
+</div>
+</div>
+<p>Rename with <strong>base R</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ucdp)[<span class="fu">names</span>(ucdp) <span class="sc">==</span> <span class="st">"best"</span>] <span class="ot">&lt;-</span> <span class="st">"fatalities_best"</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ucdp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "id"                "relid"             "year"             
+ [4] "active_year"       "code_status"       "type_of_violence" 
+ [7] "conflict_dset_id"  "conflict_new_id"   "conflict_name"    
+[10] "dyad_dset_id"      "dyad_new_id"       "dyad_name"        
+[13] "side_a_dset_id"    "side_a_new_id"     "side_a"           
+[16] "side_b_dset_id"    "side_b_new_id"     "side_b"           
+[19] "number_of_sources" "source_article"    "source_office"    
+[22] "source_date"       "source_headline"   "source_original"  
+[25] "where_prec"        "where_coordinates" "where_description"
+[28] "adm_1"             "adm_2"             "latitude"         
+[31] "longitude"         "geom_wkt"          "priogrid_gid"     
+[34] "country"           "country_id"        "region"           
+[37] "event_clarity"     "date_prec"         "date_start"       
+[40] "date_end"          "deaths_a"          "deaths_b"         
+[43] "deaths_civilians"  "deaths_unknown"    "fatalities_best"  
+[46] "high"              "low"               "gwnoa"            
+[49] "gwnob"            </code></pre>
+</div>
+</div>
+<p>Or rename with <strong>dplyr</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ucdp <span class="ot">&lt;-</span> ucdp <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">admin_1 =</span> adm_1)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ucdp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "id"                "relid"             "year"             
+ [4] "active_year"       "code_status"       "type_of_violence" 
+ [7] "conflict_dset_id"  "conflict_new_id"   "conflict_name"    
+[10] "dyad_dset_id"      "dyad_new_id"       "dyad_name"        
+[13] "side_a_dset_id"    "side_a_new_id"     "side_a"           
+[16] "side_b_dset_id"    "side_b_new_id"     "side_b"           
+[19] "number_of_sources" "source_article"    "source_office"    
+[22] "source_date"       "source_headline"   "source_original"  
+[25] "where_prec"        "where_coordinates" "where_description"
+[28] "admin_1"           "adm_2"             "latitude"         
+[31] "longitude"         "geom_wkt"          "priogrid_gid"     
+[34] "country"           "country_id"        "region"           
+[37] "event_clarity"     "date_prec"         "date_start"       
+[40] "date_end"          "deaths_a"          "deaths_b"         
+[43] "deaths_civilians"  "deaths_unknown"    "fatalities_best"  
+[46] "high"              "low"               "gwnoa"            
+[49] "gwnob"            </code></pre>
+</div>
+</div>
+<hr>
+<section id="exercise-1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1">🏗 Exercise 1</h3>
+<ul>
+<li>Rename <code>side_a</code> to <code>actor_a</code>.<br>
+</li>
+<li>Check that the new column names look correct.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="recoding-values" class="level2">
+<h2 class="anchored" data-anchor-id="recoding-values">🔄 Recoding Values</h2>
+<p>We can <strong>recode</strong> values using <code>ifelse()</code> or <code>dplyr::mutate()</code>. We use this for creating binary/categorical variables (also called dummy variables).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="ot">&lt;-</span> ucdp <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">minor_conflict =</span> <span class="fu">ifelse</span>(fatalities_best <span class="sc">&lt;</span> <span class="dv">25</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With the <code>table()</code> command, we can look at the distribution of dummy variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ucdp<span class="sc">$</span>minor_conflict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     0      1 
+ 15840 370078 </code></pre>
+</div>
+</div>
+</section>
+<section id="create-new-variables" class="level2">
+<h2 class="anchored" data-anchor-id="create-new-variables">🔄 Create new variables</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ucdp<span class="sc">$</span>battle_deaths <span class="ot">&lt;-</span> ucdp<span class="sc">$</span>deaths_a <span class="sc">+</span> ucdp<span class="sc">$</span>deaths_b</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ucdp<span class="sc">$</span>battle_deaths)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.000e+00 0.000e+00 1.000e+00 4.716e+00 2.000e+00 1.218e+05 </code></pre>
+</div>
+</div>
+<hr>
+<section id="exercise-2" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2">🏗 Exercise 2</h3>
+<ul>
+<li>Create a new variable called <code>major_conflict</code> which is <code>1</code> if fatalities &gt;= 1000, and <code>0</code> otherwise.</li>
+<li>How many high-intensity events do you find?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+<section id="base-r-subsetting" class="level3">
+<h3 class="anchored" data-anchor-id="base-r-subsetting">Base R Subsetting</h3>
+<p>Base R uses square brackets <code>[ ]</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ucdp[<span class="dv">1</span>, ]      <span class="co"># first row</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 51
+      id relid    year active_year code_status type_of_violence conflict_dset_id
+   &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;lgl&gt;       &lt;chr&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+1 244657 IRQ-20…  2017 TRUE        Clear                      1              259
+# ℹ 44 more variables: conflict_new_id &lt;dbl&gt;, conflict_name &lt;chr&gt;,
+#   dyad_dset_id &lt;dbl&gt;, dyad_new_id &lt;dbl&gt;, dyad_name &lt;chr&gt;,
+#   side_a_dset_id &lt;dbl&gt;, side_a_new_id &lt;dbl&gt;, side_a &lt;chr&gt;,
+#   side_b_dset_id &lt;dbl&gt;, side_b_new_id &lt;dbl&gt;, side_b &lt;chr&gt;,
+#   number_of_sources &lt;dbl&gt;, source_article &lt;chr&gt;, source_office &lt;chr&gt;,
+#   source_date &lt;chr&gt;, source_headline &lt;chr&gt;, source_original &lt;chr&gt;,
+#   where_prec &lt;dbl&gt;, where_coordinates &lt;chr&gt;, where_description &lt;chr&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ucdp[, <span class="dv">1</span>]      <span class="co"># first column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 385,918 × 1
+       id
+    &lt;dbl&gt;
+ 1 244657
+ 2 412700
+ 3 413023
+ 4 412909
+ 5 132140
+ 6 130364
+ 7 130359
+ 8 133883
+ 9 133874
+10 133878
+# ℹ 385,908 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ucdp[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="co"># first 3 rows, first 2 columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+      id relid             
+   &lt;dbl&gt; &lt;chr&gt;             
+1 244657 IRQ-2017-1-524-322
+2 412700 IRQ-2021-1-524-145
+3 413023 IRQ-2021-1-524-143</code></pre>
+</div>
+</div>
+</section>
+<section id="base-r-logical-filtering" class="level3">
+<h3 class="anchored" data-anchor-id="base-r-logical-filtering">Base R Logical Filtering</h3>
+<p>We can also filter by condition:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ucdp[ucdp<span class="sc">$</span>country <span class="sc">==</span> <span class="st">"Kenya"</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,215 × 51
+      id relid    year active_year code_status type_of_violence conflict_dset_id
+   &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;lgl&gt;       &lt;chr&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+ 1 29691 ETH-20…  2011 TRUE        Clear                      1              329
+ 2 25578 SOM-20…  2007 TRUE        Clear                      1              337
+ 3 30830 SOM-20…  2011 TRUE        Clear                      1              337
+ 4 31463 SOM-20…  2012 TRUE        Clear                      1              337
+ 5 31446 SOM-20…  2012 TRUE        Clear                      1              337
+ 6 31189 SOM-20…  2012 TRUE        Clear                      1              337
+ 7 31442 SOM-20…  2012 TRUE        Clear                      1              337
+ 8 31464 SOM-20…  2012 TRUE        Clear                      1              337
+ 9 31488 SOM-20…  2012 TRUE        Clear                      1              337
+10 31465 SOM-20…  2012 TRUE        Clear                      1              337
+# ℹ 1,205 more rows
+# ℹ 44 more variables: conflict_new_id &lt;dbl&gt;, conflict_name &lt;chr&gt;,
+#   dyad_dset_id &lt;dbl&gt;, dyad_new_id &lt;dbl&gt;, dyad_name &lt;chr&gt;,
+#   side_a_dset_id &lt;dbl&gt;, side_a_new_id &lt;dbl&gt;, side_a &lt;chr&gt;,
+#   side_b_dset_id &lt;dbl&gt;, side_b_new_id &lt;dbl&gt;, side_b &lt;chr&gt;,
+#   number_of_sources &lt;dbl&gt;, source_article &lt;chr&gt;, source_office &lt;chr&gt;,
+#   source_date &lt;chr&gt;, source_headline &lt;chr&gt;, source_original &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>Multiple conditions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ucdp[ucdp<span class="sc">$</span>country <span class="sc">==</span> <span class="st">"Kenya"</span> <span class="sc">&amp;</span> ucdp<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2020</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 65 × 51
+       id relid   year active_year code_status type_of_violence conflict_dset_id
+    &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;       &lt;chr&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+ 1 326839 KEN-2…  2020 FALSE       Clear                      3               91
+ 2 326894 KEN-2…  2020 FALSE       Clear                      3               91
+ 3 336535 KEN-2…  2020 FALSE       Clear                      3               91
+ 4 336312 KEN-2…  2020 FALSE       Clear                      3               91
+ 5 339519 KEN-2…  2020 FALSE       Clear                      3               91
+ 6 336536 KEN-2…  2020 FALSE       Clear                      3               91
+ 7 339522 KEN-2…  2020 FALSE       Clear                      3               91
+ 8 339523 KEN-2…  2020 FALSE       Clear                      3               91
+ 9 339524 KEN-2…  2020 FALSE       Clear                      3               91
+10 341645 KEN-2…  2020 FALSE       Clear                      3               91
+# ℹ 55 more rows
+# ℹ 44 more variables: conflict_new_id &lt;dbl&gt;, conflict_name &lt;chr&gt;,
+#   dyad_dset_id &lt;dbl&gt;, dyad_new_id &lt;dbl&gt;, dyad_name &lt;chr&gt;,
+#   side_a_dset_id &lt;dbl&gt;, side_a_new_id &lt;dbl&gt;, side_a &lt;chr&gt;,
+#   side_b_dset_id &lt;dbl&gt;, side_b_new_id &lt;dbl&gt;, side_b &lt;chr&gt;,
+#   number_of_sources &lt;dbl&gt;, source_article &lt;chr&gt;, source_office &lt;chr&gt;,
+#   source_date &lt;chr&gt;, source_headline &lt;chr&gt;, source_original &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="dplyr-a-cleaner-way" class="level2">
+<h2 class="anchored" data-anchor-id="dplyr-a-cleaner-way">🔥 <code>dplyr</code>: A Cleaner Way</h2>
+<p>The <code>dplyr</code> package is <strong>easier to read</strong> and <strong>more powerful</strong>.</p>
+<hr>
+<section id="select-columns" class="level3">
+<h3 class="anchored" data-anchor-id="select-columns">Select Columns</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="sc">%&gt;%</span> <span class="fu">select</span>(country, fatalities_best)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 385,918 × 2
+   country     fatalities_best
+   &lt;chr&gt;                 &lt;dbl&gt;
+ 1 Afghanistan               6
+ 2 Afghanistan             183
+ 3 Afghanistan               2
+ 4 Afghanistan              10
+ 5 Afghanistan               6
+ 6 Afghanistan               4
+ 7 Afghanistan             600
+ 8 Afghanistan               2
+ 9 Afghanistan              70
+10 Afghanistan              20
+# ℹ 385,908 more rows</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="filter-rows" class="level3">
+<h3 class="anchored" data-anchor-id="filter-rows">Filter Rows</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"Kenya"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,215 × 51
+      id relid    year active_year code_status type_of_violence conflict_dset_id
+   &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;lgl&gt;       &lt;chr&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+ 1 29691 ETH-20…  2011 TRUE        Clear                      1              329
+ 2 25578 SOM-20…  2007 TRUE        Clear                      1              337
+ 3 30830 SOM-20…  2011 TRUE        Clear                      1              337
+ 4 31463 SOM-20…  2012 TRUE        Clear                      1              337
+ 5 31446 SOM-20…  2012 TRUE        Clear                      1              337
+ 6 31189 SOM-20…  2012 TRUE        Clear                      1              337
+ 7 31442 SOM-20…  2012 TRUE        Clear                      1              337
+ 8 31464 SOM-20…  2012 TRUE        Clear                      1              337
+ 9 31488 SOM-20…  2012 TRUE        Clear                      1              337
+10 31465 SOM-20…  2012 TRUE        Clear                      1              337
+# ℹ 1,205 more rows
+# ℹ 44 more variables: conflict_new_id &lt;dbl&gt;, conflict_name &lt;chr&gt;,
+#   dyad_dset_id &lt;dbl&gt;, dyad_new_id &lt;dbl&gt;, dyad_name &lt;chr&gt;,
+#   side_a_dset_id &lt;dbl&gt;, side_a_new_id &lt;dbl&gt;, side_a &lt;chr&gt;,
+#   side_b_dset_id &lt;dbl&gt;, side_b_new_id &lt;dbl&gt;, side_b &lt;chr&gt;,
+#   number_of_sources &lt;dbl&gt;, source_article &lt;chr&gt;, source_office &lt;chr&gt;,
+#   source_date &lt;chr&gt;, source_headline &lt;chr&gt;, source_original &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>Filter with multiple conditions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"Sudan"</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="dv">2021</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 77 × 51
+       id relid   year active_year code_status type_of_violence conflict_dset_id
+    &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;       &lt;chr&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+ 1 385614 SUD-2…  2021 TRUE        Clear                      1              309
+ 2 385613 SUD-2…  2021 TRUE        Clear                      1              309
+ 3 380326 SUD-2…  2021 TRUE        Clear                      1              309
+ 4 385339 SUD-2…  2021 TRUE        Clear                      1              309
+ 5 410900 SUD-2…  2021 TRUE        Clear                      1              309
+ 6 381016 ETH-2…  2021 TRUE        Clear                      3               97
+ 7 380075 ETH-2…  2021 TRUE        Clear                      3               97
+ 8 385464 ETH-2…  2021 TRUE        Clear                      3               97
+ 9 389846 ETH-2…  2021 TRUE        Clear                      3               97
+10 405840 ETH-2…  2021 TRUE        Clear                      3               97
+# ℹ 67 more rows
+# ℹ 44 more variables: conflict_new_id &lt;dbl&gt;, conflict_name &lt;chr&gt;,
+#   dyad_dset_id &lt;dbl&gt;, dyad_new_id &lt;dbl&gt;, dyad_name &lt;chr&gt;,
+#   side_a_dset_id &lt;dbl&gt;, side_a_new_id &lt;dbl&gt;, side_a &lt;chr&gt;,
+#   side_b_dset_id &lt;dbl&gt;, side_b_new_id &lt;dbl&gt;, side_b &lt;chr&gt;,
+#   number_of_sources &lt;dbl&gt;, source_article &lt;chr&gt;, source_office &lt;chr&gt;,
+#   source_date &lt;chr&gt;, source_headline &lt;chr&gt;, source_original &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-3" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3">🏗 Exercise 3</h3>
+<p>👉 <strong>Task:</strong><br>
+- Use <code>filter()</code> to select all rows where fatalities <strong>&gt; 20</strong>.<br>
+- Use <code>select()</code> to keep only <code>country</code>, <code>year</code>, and <code>fatalities_best</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="arrange-sort" class="level2">
+<h2 class="anchored" data-anchor-id="arrange-sort">Arrange (Sort)</h2>
+<p>Sort data by fatalities:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(fatalities_best)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 385,918 × 51
+       id relid   year active_year code_status type_of_violence conflict_dset_id
+    &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;       &lt;chr&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+ 1 134183 AFG-1…  1989 TRUE        Clear                      1              333
+ 2 134399 AFG-1…  1991 TRUE        Clear                      1              333
+ 3 145682 AFG-1…  1992 TRUE        Clear                      1              333
+ 4 145697 AFG-1…  1992 TRUE        Clear                      1              333
+ 5 145758 AFG-1…  1992 TRUE        Clear                      1              333
+ 6 145800 AFG-1…  1993 TRUE        Clear                      1              333
+ 7 145843 AFG-1…  1993 TRUE        Clear                      1              333
+ 8 146149 AFG-1…  1994 TRUE        Clear                      1              333
+ 9 147668 AFG-2…  2003 TRUE        Clear                      1              333
+10 147675 AFG-2…  2003 TRUE        Clear                      1              333
+# ℹ 385,908 more rows
+# ℹ 44 more variables: conflict_new_id &lt;dbl&gt;, conflict_name &lt;chr&gt;,
+#   dyad_dset_id &lt;dbl&gt;, dyad_new_id &lt;dbl&gt;, dyad_name &lt;chr&gt;,
+#   side_a_dset_id &lt;dbl&gt;, side_a_new_id &lt;dbl&gt;, side_a &lt;chr&gt;,
+#   side_b_dset_id &lt;dbl&gt;, side_b_new_id &lt;dbl&gt;, side_b &lt;chr&gt;,
+#   number_of_sources &lt;dbl&gt;, source_article &lt;chr&gt;, source_office &lt;chr&gt;,
+#   source_date &lt;chr&gt;, source_headline &lt;chr&gt;, source_original &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>Sort descending:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(fatalities_best))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 385,918 × 51
+       id relid   year active_year code_status type_of_violence conflict_dset_id
+    &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;       &lt;chr&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+ 1 463137 ETH-2…  2022 TRUE        Clear                      1              267
+ 2 463131 ETH-2…  2021 TRUE        Clear                      1              267
+ 3  34362 ETH-2…  2000 TRUE        Clear                      1              409
+ 4 289326 RWA-1…  1994 TRUE        Clear                      3               94
+ 5 445207 RWA-1…  1994 TRUE        Clear                      3               94
+ 6  40030 RWA-1…  1994 TRUE        Clear                      3               94
+ 7 296657 RWA-1…  1994 TRUE        Clear                      3               94
+ 8  34346 ETH-1…  1999 TRUE        Clear                      1              409
+ 9  39595 RWA-1…  1994 TRUE        Clear                      3               94
+10 338468 RWA-1…  1994 TRUE        Clear                      3               94
+# ℹ 385,908 more rows
+# ℹ 44 more variables: conflict_new_id &lt;dbl&gt;, conflict_name &lt;chr&gt;,
+#   dyad_dset_id &lt;dbl&gt;, dyad_new_id &lt;dbl&gt;, dyad_name &lt;chr&gt;,
+#   side_a_dset_id &lt;dbl&gt;, side_a_new_id &lt;dbl&gt;, side_a &lt;chr&gt;,
+#   side_b_dset_id &lt;dbl&gt;, side_b_new_id &lt;dbl&gt;, side_b &lt;chr&gt;,
+#   number_of_sources &lt;dbl&gt;, source_article &lt;chr&gt;, source_office &lt;chr&gt;,
+#   source_date &lt;chr&gt;, source_headline &lt;chr&gt;, source_original &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="slice" class="level2">
+<h2 class="anchored" data-anchor-id="slice">Slice</h2>
+<p>Pick specific rows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)   <span class="co"># first 3 rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 51
+      id relid    year active_year code_status type_of_violence conflict_dset_id
+   &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;lgl&gt;       &lt;chr&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+1 244657 IRQ-20…  2017 TRUE        Clear                      1              259
+2 412700 IRQ-20…  2021 TRUE        Clear                      1              259
+3 413023 IRQ-20…  2021 TRUE        Clear                      1              259
+# ℹ 44 more variables: conflict_new_id &lt;dbl&gt;, conflict_name &lt;chr&gt;,
+#   dyad_dset_id &lt;dbl&gt;, dyad_new_id &lt;dbl&gt;, dyad_name &lt;chr&gt;,
+#   side_a_dset_id &lt;dbl&gt;, side_a_new_id &lt;dbl&gt;, side_a &lt;chr&gt;,
+#   side_b_dset_id &lt;dbl&gt;, side_b_new_id &lt;dbl&gt;, side_b &lt;chr&gt;,
+#   number_of_sources &lt;dbl&gt;, source_article &lt;chr&gt;, source_office &lt;chr&gt;,
+#   source_date &lt;chr&gt;, source_headline &lt;chr&gt;, source_original &lt;chr&gt;,
+#   where_prec &lt;dbl&gt;, where_coordinates &lt;chr&gt;, where_description &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="combining-verbs-with-pipes" class="level2">
+<h2 class="anchored" data-anchor-id="combining-verbs-with-pipes">Combining Verbs with Pipes</h2>
+<p>We can <strong>chain operations</strong> using <code>%&gt;%</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(fatalities_best <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, year, fatalities_best) <span class="sc">%&gt;%</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(fatalities_best))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 40,354 × 3
+   country   year fatalities_best
+   &lt;chr&gt;    &lt;dbl&gt;           &lt;dbl&gt;
+ 1 Ethiopia  2022          121848
+ 2 Ethiopia  2021          113368
+ 3 Ethiopia  2000           48183
+ 4 Rwanda    1994           40000
+ 5 Rwanda    1994           40000
+ 6 Rwanda    1994           40000
+ 7 Rwanda    1994           37000
+ 8 Ethiopia  1999           30000
+ 9 Rwanda    1994           25190
+10 Rwanda    1994           25000
+# ℹ 40,344 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="sc">%&gt;%</span> </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span> <span class="co"># we sort the year variable</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(year) <span class="co"># and select only unique years</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 36 × 1
+    year
+   &lt;dbl&gt;
+ 1  1989
+ 2  1990
+ 3  1991
+ 4  1992
+ 5  1993
+ 6  1994
+ 7  1995
+ 8  1996
+ 9  1997
+10  1998
+# ℹ 26 more rows</code></pre>
+</div>
+</div>
+<p>As we can see, the dataset covers 1989 - 2024</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(ucdp<span class="sc">$</span>year) <span class="co"># same result</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1989 2024</code></pre>
+</div>
+</div>
+<p>If we want to subset the dataset to DR Congo. First, check how the country names are spelled:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ucdp<span class="sc">$</span>country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+                    Afghanistan                         Albania 
+                          42220                              10 
+                        Algeria                          Angola 
+                           4179                            2108 
+                      Argentina                         Armenia 
+                              2                              77 
+                      Australia                         Austria 
+                              2                               1 
+                     Azerbaijan                         Bahrain 
+                            800                              24 
+                     Bangladesh                         Belgium 
+                            693                               6 
+                          Benin                          Bhutan 
+                             65                               2 
+                        Bolivia              Bosnia-Herzegovina 
+                             12                            9340 
+                       Botswana                          Brazil 
+                              1                            8331 
+                   Burkina Faso                         Burundi 
+                           1816                            3144 
+           Cambodia (Kampuchea)                        Cameroon 
+                            546                            2137 
+                         Canada        Central African Republic 
+                             35                            2031 
+                           Chad                           China 
+                            466                              39 
+                       Colombia                         Comoros 
+                          14620                               7 
+                          Congo                         Croatia 
+                            239                             157 
+                       Djibouti                DR Congo (Zaire) 
+                             61                            8901 
+                        Ecuador                           Egypt 
+                            725                            1157 
+                    El Salvador                         Eritrea 
+                            193                              53 
+                       Ethiopia                          France 
+                           5386                              63 
+                         Gambia                         Georgia 
+                              6                             259 
+                        Germany                           Ghana 
+                              6                              55 
+                      Guatemala                          Guinea 
+                            506                              83 
+                  Guinea-Bissau                          Guyana 
+                             22                               3 
+                          Haiti                        Honduras 
+                            359                              96 
+                          India                       Indonesia 
+                          17997                            1972 
+                           Iran                            Iraq 
+                            667                            9438 
+                         Israel                           Italy 
+                           8070                               1 
+                    Ivory Coast                         Jamaica 
+                            363                              29 
+                         Jordan                           Kenya 
+                              9                            1215 
+Kingdom of eSwatini (Swaziland)                          Kuwait 
+                             22                              40 
+                     Kyrgyzstan                            Laos 
+                             83                              24 
+                        Lebanon                         Lesotho 
+                           2385                               5 
+                        Liberia                           Libya 
+                            551                            1263 
+          Madagascar (Malagasy)                        Malaysia 
+                             47                              15 
+                           Mali                           Malta 
+                           2573                               1 
+                     Mauritania                          Mexico 
+                             38                           21550 
+                        Moldova                         Morocco 
+                             77                              27 
+                     Mozambique                 Myanmar (Burma) 
+                           1515                            8476 
+                        Namibia                           Nepal 
+                             19                            5655 
+                    Netherlands                       Nicaragua 
+                              2                              27 
+                          Niger                         Nigeria 
+                            675                            7418 
+                North Macedonia                        Pakistan 
+                             55                            7855 
+                         Panama                Papua New Guinea 
+                              4                             152 
+                       Paraguay                            Peru 
+                              5                             890 
+                    Philippines                          Poland 
+                           4368                               1 
+                          Qatar                         Romania 
+                              1                              16 
+          Russia (Soviet Union)                          Rwanda 
+                           4616                            2604 
+                   Saudi Arabia                         Senegal 
+                            171                             308 
+            Serbia (Yugoslavia)                    Sierra Leone 
+                           1204                            1497 
+                Solomon Islands                         Somalia 
+                              1                            6868 
+                   South Africa                     South Sudan 
+                           2895                            1001 
+                          Spain                       Sri Lanka 
+                            148                            4581 
+                          Sudan                          Sweden 
+                           4556                               1 
+                          Syria                      Tajikistan 
+                          87861                             328 
+                       Tanzania                        Thailand 
+                             52                            2838 
+                           Togo             Trinidad and Tobago 
+                            150                               3 
+                        Tunisia                          Turkey 
+                            124                            6945 
+                         Uganda                         Ukraine 
+                           1702                           31547 
+           United Arab Emirates                  United Kingdom 
+                              2                             198 
+       United States of America                      Uzbekistan 
+                              9                              32 
+                      Venezuela             Yemen (North Yemen) 
+                           1485                            5445 
+                         Zambia             Zimbabwe (Rhodesia) 
+                             38                              68 </code></pre>
+</div>
+</div>
+<p>Copy the name</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>ucdp_drc <span class="ot">&lt;-</span> ucdp <span class="sc">%&gt;%</span> <span class="co"># save it in "ucdp_drc"</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"DR Congo (Zaire)"</span>) <span class="co"># only look at "DR Congo (Zaire)" </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note, we need to use a double equation sign (<code>==</code>) because we are selecting on a conditionality (similar to an if-function).</p>
+<p>If we want to look at the fatalities in DR Congo per year, build upon the previous code and extend it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"DR Congo (Zaire)"</span>) <span class="sc">%&gt;%</span> <span class="co"># only look at "Burundi"</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> <span class="co"># group by year</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">fatalities_mean =</span> <span class="fu">mean</span>(fatalities_best)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 36 × 2
+    year fatalities_mean
+   &lt;dbl&gt;           &lt;dbl&gt;
+ 1  1989            9.33
+ 2  1990           36.8 
+ 3  1991            4.57
+ 4  1992            6.09
+ 5  1993          167.  
+ 6  1994           20.8 
+ 7  1995           32.9 
+ 8  1996          164.  
+ 9  1997          101.  
+10  1998           65.4 
+# ℹ 26 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="mean-mode-median" class="level2">
+<h2 class="anchored" data-anchor-id="mean-mode-median">Mean, Mode, Median</h2>
+<p><strong>Mean</strong> is the arithmetic average the sum of all values divided by the count of values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(ucdp<span class="sc">$</span>fatalities_best)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.25384</code></pre>
+</div>
+</div>
+<p><strong>Median</strong> is the middle value of the data set. It splits the data into two halves. If the number of elements in the data set is odd then the center element is median and if it is even then the median would be the average of two central elements. A median of a population is any value such that at least half of the population is less than or equal to the proposed median and at least half is greater than or equal to the proposed median.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(ucdp<span class="sc">$</span>fatalities_best) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>The <strong>mode</strong> is the value that appears most frequently in a dataset. The <code>mfv()</code> function from the <code>modeest</code> package finds the most frequent value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mfv</span>(ucdp<span class="sc">$</span>fatalities_best) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(ucdp<span class="sc">$</span>fatalities_best) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]      0 121848</code></pre>
+</div>
+</div>
+<p>Use <code>group_by(country, year)</code> and `sum()``` instead of mean to get the total number of fatalities in each country-year.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="sc">%&gt;%</span> </span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(country, year) <span class="sc">%&gt;%</span> <span class="co"># group by country &amp; year</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">fatalities_sum =</span> <span class="fu">sum</span>(fatalities_best)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,046 × 3
+# Groups:   country [124]
+   country      year fatalities_sum
+   &lt;chr&gt;       &lt;dbl&gt;          &lt;dbl&gt;
+ 1 Afghanistan  1989           5411
+ 2 Afghanistan  1990           1514
+ 3 Afghanistan  1991           3553
+ 4 Afghanistan  1992           4385
+ 5 Afghanistan  1993           4105
+ 6 Afghanistan  1994           9056
+ 7 Afghanistan  1995           5618
+ 8 Afghanistan  1996           3595
+ 9 Afghanistan  1997           6721
+10 Afghanistan  1998          12174
+# ℹ 2,036 more rows</code></pre>
+</div>
+</div>
+<section id="generate-some-proportional-overview-count" class="level3">
+<h3 class="anchored" data-anchor-id="generate-some-proportional-overview-count">Generate some proportional overview: <code>count()</code></h3>
+<p><code>count()</code> allows us to generate a quasi proportion table for the different values of our variables. We will use the <code>count()</code> function as a way to count the number of observations country.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="sc">%&gt;%</span> </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 124 × 2
+   country         n
+   &lt;chr&gt;       &lt;int&gt;
+ 1 Afghanistan 42220
+ 2 Albania        10
+ 3 Algeria      4179
+ 4 Angola       2108
+ 5 Argentina       2
+ 6 Armenia        77
+ 7 Australia       2
+ 8 Austria         1
+ 9 Azerbaijan    800
+10 Bahrain        24
+# ℹ 114 more rows</code></pre>
+</div>
+</div>
+<p>And we now want to sort them so that we’ve the highest value first.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="sc">%&gt;%</span> </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(country, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 124 × 2
+   country                n
+   &lt;chr&gt;              &lt;int&gt;
+ 1 Syria              87861
+ 2 Afghanistan        42220
+ 3 Ukraine            31547
+ 4 Mexico             21550
+ 5 India              17997
+ 6 Colombia           14620
+ 7 Iraq                9438
+ 8 Bosnia-Herzegovina  9340
+ 9 DR Congo (Zaire)    8901
+10 Myanmar (Burma)     8476
+# ℹ 114 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="sort-dataset-combination-of-select-and-everything" class="level3">
+<h3 class="anchored" data-anchor-id="sort-dataset-combination-of-select-and-everything">Sort dataset: Combination of <code>select()</code> and <code>everything()</code></h3>
+<p>Sometimes we want to reorder the variables in a dataset. Let’s say we want the <code>country</code> and the <code>year</code> first, but keep everything else as it is we would write:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>ucdp <span class="ot">&lt;-</span> ucdp <span class="sc">%&gt;%</span> </span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(country, year, <span class="fu">everything</span>())</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ucdp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 51
+  country      year     id relid        active_year code_status type_of_violence
+  &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;        &lt;lgl&gt;       &lt;chr&gt;                  &lt;dbl&gt;
+1 Afghanistan  2017 244657 IRQ-2017-1-… TRUE        Clear                      1
+2 Afghanistan  2021 412700 IRQ-2021-1-… TRUE        Clear                      1
+3 Afghanistan  2021 413023 IRQ-2021-1-… TRUE        Clear                      1
+4 Afghanistan  2021 412909 IRQ-2021-1-… TRUE        Clear                      1
+5 Afghanistan  1989 132140 AFG-1989-1-… TRUE        Clear                      1
+6 Afghanistan  1989 130364 AFG-1989-1-… TRUE        Clear                      1
+# ℹ 44 more variables: conflict_dset_id &lt;dbl&gt;, conflict_new_id &lt;dbl&gt;,
+#   conflict_name &lt;chr&gt;, dyad_dset_id &lt;dbl&gt;, dyad_new_id &lt;dbl&gt;,
+#   dyad_name &lt;chr&gt;, side_a_dset_id &lt;dbl&gt;, side_a_new_id &lt;dbl&gt;, side_a &lt;chr&gt;,
+#   side_b_dset_id &lt;dbl&gt;, side_b_new_id &lt;dbl&gt;, side_b &lt;chr&gt;,
+#   number_of_sources &lt;dbl&gt;, source_article &lt;chr&gt;, source_office &lt;chr&gt;,
+#   source_date &lt;chr&gt;, source_headline &lt;chr&gt;, source_original &lt;chr&gt;,
+#   where_prec &lt;dbl&gt;, where_coordinates &lt;chr&gt;, where_description &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="what-is-a-tibble" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-tibble">📦 What is a Tibble?</h2>
+<p>When you load the <strong>dplyr</strong> or <strong>tidyverse</strong> packages, you’ll often see that your datasets are printed as a <strong>tibble</strong> instead of a traditional <strong>data frame</strong>.</p>
+<hr>
+<section id="tibble-vs.-data-frame" class="level3">
+<h3 class="anchored" data-anchor-id="tibble-vs.-data-frame">🔍 Tibble vs.&nbsp;Data Frame</h3>
+<table class="table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 41%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Data Frame</th>
+<th>Tibble</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Printing</td>
+<td>Shows all rows &amp; columns (can flood your console)</td>
+<td>Shows first 10 rows, fits columns to screen</td>
+</tr>
+<tr class="even">
+<td>Column names</td>
+<td>Changed to valid R names automatically (e.g., spaces replaced with <code>.</code>)</td>
+<td>Keeps original names exactly as they are</td>
+</tr>
+<tr class="odd">
+<td>Data types</td>
+<td>Converts strings to factors (pre-R 4.0) unless <code>stringsAsFactors = FALSE</code></td>
+<td>Never converts strings to factors automatically</td>
+</tr>
+<tr class="even">
+<td>Subsetting</td>
+<td><code>df[,1]</code> may return a vector</td>
+<td><code>tibble[,1]</code> always returns a tibble (unless you use <code>[[ ]]</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="creating-a-tibble" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-tibble">📜 Creating a Tibble</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">country =</span> <span class="fu">c</span>(<span class="st">"Kenya"</span>, <span class="st">"Sudan"</span>, <span class="st">"Somalia"</span>),</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2020</span>),</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">fatalities =</span> <span class="fu">c</span>(<span class="dv">42</span>, <span class="dv">30</span>, <span class="dv">12</span>)</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>tb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  country  year fatalities
+  &lt;chr&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+1 Kenya    2020         42
+2 Sudan    2021         30
+3 Somalia  2020         12</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="converting-between-data-frame-and-tibble" class="level3">
+<h3 class="anchored" data-anchor-id="converting-between-data-frame-and-tibble">🔄 Converting Between Data Frame and Tibble</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data frame to tibble</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mtcars)</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Tibble to data frame</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(tb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+<section id="why-use-tibbles" class="level3">
+<h3 class="anchored" data-anchor-id="why-use-tibbles">✅ Why Use Tibbles?</h3>
+<ul>
+<li><strong>Cleaner printing</strong> → prevents flooding the console</li>
+<li><strong>Preserves column names</strong> exactly</li>
+<li><strong>Safer subsetting</strong> → reduces accidental type changes</li>
+<li>Works seamlessly with <strong>dplyr</strong> and other tidyverse functions</li>
+</ul>
+<hr>
+</section>
+<section id="exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise">🏗 Exercise</h3>
+<p>👉 <strong>Task:</strong> 1. Convert <code>ucdp</code> into a tibble. 2. Print it and notice the difference in output compared to a data frame. 3. Convert it back to a data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
