@@ -123,15 +123,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./session01.html" rel="" target="">
- <span class="menu-text">1: Getting Started with R</span></a>
+ <span class="menu-text">Getting Started with R</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./session02.html" rel="" target="">
- <span class="menu-text">2: Exploring Data</span></a>
+ <span class="menu-text">Exploring Data</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./session03.html" rel="" target="">
- <span class="menu-text">3: Data Wrangling</span></a>
+ <span class="menu-text">Data Wrangling</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./session04.html" rel="" target="">
@@ -139,7 +139,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./session05.html" rel="" target="">
- <span class="menu-text">5: Descriptive Statistics</span></a>
+ <span class="menu-text">Descriptive Statistics</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./session06.html" rel="" target="" aria-current="page">
@@ -408,6 +408,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                    
                    </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#saveRDS(df, "Data/data_reg.rds")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 </section>
@@ -430,8 +431,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="example-fatalities-on-gdp" class="level3">
 <h3 class="anchored" data-anchor-id="example-fatalities-on-gdp">Example: Fatalities on GDP</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(best <span class="sc">~</span> gdp_pc, <span class="at">data =</span> df)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(best <span class="sc">~</span> gdp_pc, <span class="at">data =</span> df)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -462,8 +463,8 @@ F-statistic: 1.882 on 1 and 1823 DF,  p-value: 0.1702</code></pre>
 </ul>
 <p>Adding predictors</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(best <span class="sc">~</span> gdp_pc<span class="sc">+</span>population<span class="sc">+</span>no.troops, <span class="at">data =</span> df)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(best <span class="sc">~</span> gdp_pc<span class="sc">+</span>population<span class="sc">+</span>no.troops, <span class="at">data =</span> df)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -561,12 +562,12 @@ OLS is not appropriate because:</p>
 <section id="example-conflict-on-gdp-and-population" class="level3">
 <h3 class="anchored" data-anchor-id="example-conflict-on-gdp-and-population">Example: Conflict on GDP and Population</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>conflict_dummy <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>best <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>logit1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(conflict_dummy <span class="sc">~</span> gdp_pc,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> df,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>conflict_dummy <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>best <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>logit1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(conflict_dummy <span class="sc">~</span> gdp_pc,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> df,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -595,7 +596,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 - Negative coefficient = predictor decreases probability of conflict<br>
 - Use <code>exp(coef())</code> to interpret as <strong>odds ratios</strong>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(logit1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(logit1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)      gdp_pc 
   1.2744584   0.9997818 </code></pre>
@@ -633,8 +634,8 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <table class="table">
 <colgroup>
 <col style="width: 33%">
-<col style="width: 38%">
-<col style="width: 27%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -685,7 +686,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <li><strong>Challenge:</strong> Add <code>country</code> fixed effects using <code>as.factor(country)</code> in your regression. What changes?</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="fixed-and-random-effects" class="level1">
@@ -709,9 +710,9 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <section id="country-fe" class="level2">
 <h2 class="anchored" data-anchor-id="country-fe">Country FE</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fe_country <span class="ot">&lt;-</span> <span class="fu">feols</span>(best <span class="sc">~</span> gdp_pc <span class="sc">+</span> population <span class="sc">+</span> </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    no.troops <span class="sc">|</span> country, <span class="at">data =</span> df, <span class="at">cluster =</span> <span class="sc">~</span> country)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fe_country <span class="ot">&lt;-</span> <span class="fu">feols</span>(best <span class="sc">~</span> gdp_pc <span class="sc">+</span> population <span class="sc">+</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    no.troops <span class="sc">|</span> country, <span class="at">data =</span> df, <span class="at">cluster =</span> <span class="sc">~</span> country)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>OLS estimation, Dep. Var.: best
 Observations: 1,825
@@ -744,9 +745,9 @@ RMSE: 18,511.4     Adj. R2: 0.006764
 <section id="year-fe" class="level2">
 <h2 class="anchored" data-anchor-id="year-fe">Year FE</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fe_year <span class="ot">&lt;-</span> <span class="fu">feols</span>(best <span class="sc">~</span> gdp_pc <span class="sc">+</span> population <span class="sc">+</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    no.troops <span class="sc">|</span> year, <span class="at">data =</span> df, <span class="at">cluster =</span> <span class="sc">~</span> country)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fe_year <span class="ot">&lt;-</span> <span class="fu">feols</span>(best <span class="sc">~</span> gdp_pc <span class="sc">+</span> population <span class="sc">+</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    no.troops <span class="sc">|</span> year, <span class="at">data =</span> df, <span class="at">cluster =</span> <span class="sc">~</span> country)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>OLS estimation, Dep. Var.: best
 Observations: 1,825
@@ -766,9 +767,9 @@ RMSE: 18,664.6     Adj. R2: 9.982e-4
 <section id="two-way-fe-country-year" class="level2">
 <h2 class="anchored" data-anchor-id="two-way-fe-country-year">Two-way FE (country &amp; year)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fe_tw <span class="ot">&lt;-</span> <span class="fu">feols</span>(best <span class="sc">~</span> gdp_pc <span class="sc">+</span> population <span class="sc">+</span> </span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    no.troops <span class="sc">|</span> country <span class="sc">+</span> year, <span class="at">data =</span> df, <span class="at">cluster =</span> <span class="sc">~</span> country)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_tw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fe_tw <span class="ot">&lt;-</span> <span class="fu">feols</span>(best <span class="sc">~</span> gdp_pc <span class="sc">+</span> population <span class="sc">+</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    no.troops <span class="sc">|</span> country <span class="sc">+</span> year, <span class="at">data =</span> df, <span class="at">cluster =</span> <span class="sc">~</span> country)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_tw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>OLS estimation, Dep. Var.: best
 Observations: 1,825
@@ -792,8 +793,8 @@ RMSE: 18,326.6     Adj. R2: 0.007412
 <h1>Binary outcome with fixed effects (Logit FE)</h1>
 <p>For <strong>binary DV</strong> (e.g., <code>conflict</code>), you can add fixed effects in a logit:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>logit_fe <span class="ot">&lt;-</span> <span class="fu">feglm</span>(conflict_dummy <span class="sc">~</span>  gdp_pc <span class="sc">+</span> population <span class="sc">+</span>no.troops <span class="sc">|</span> country <span class="sc">+</span> year, <span class="at">data =</span> df, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logit_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>logit_fe <span class="ot">&lt;-</span> <span class="fu">feglm</span>(conflict_dummy <span class="sc">~</span>  gdp_pc <span class="sc">+</span> population <span class="sc">+</span>no.troops <span class="sc">|</span> country <span class="sc">+</span> year, <span class="at">data =</span> df, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logit_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GLM estimation, family = binomial, Dep. Var.: conflict_dummy
 Observations: 1,335
@@ -814,8 +815,8 @@ Log-Likelihood:  -634.8   Adj. Pseudo R2: 0.222379
 <li>Use <code>type = "response"</code> on <code>predict()</code> to get predicted probabilities.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_fe, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(logit_fe, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9384204 0.9215645 0.9572181 0.9629824 0.9422430 0.9569742</code></pre>
 </div>
@@ -830,7 +831,7 @@ Log-Likelihood:  -634.8   Adj. Pseudo R2: 0.222379
 <li><strong>Binary DV:</strong> Create a binary variable from <code>deaths_civilians</code> as the DV, estimate a <strong>logit with country FE</strong>. How does it compare to the linear model?</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 </section>

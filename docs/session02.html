@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Conflict and Event Data - 2: Exploring Data</title>
+<title>Conflict and Event Data - Exploring Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -121,27 +121,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./session01.html" rel="" target="">
- <span class="menu-text">1: Getting Started with R</span></a>
+ <span class="menu-text">Getting Started with R</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./session02.html" rel="" target="" aria-current="page">
- <span class="menu-text">2: Exploring Data</span></a>
+ <span class="menu-text">Exploring Data</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./session03.html" rel="" target="">
- <span class="menu-text">3: Data Wrangling</span></a>
+ <span class="menu-text">Data Wrangling</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./session04.html" rel="" target="">
- <span class="menu-text">4: Merging Data</span></a>
+ <span class="menu-text">Merging Data</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./session05.html" rel="" target="">
- <span class="menu-text">5: Descriptive Statistics</span></a>
+ <span class="menu-text">Descriptive Statistics</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./session06.html" rel="" target="">
- <span class="menu-text">6: Regressions</span></a>
+ <span class="menu-text">Regressions</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./session07.html" rel="" target="">
+ <span class="menu-text">Visualizations</span></a>
   </li>  
 </ul>
             <div class="quarto-navbar-tools ms-auto">
@@ -182,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">2: Exploring Data</h1>
+<h1 class="title">Exploring Data</h1>
 </div>
 
 
@@ -286,20 +290,14 @@ Sudan,2020,13</code></pre>
 <p>R needs to know <strong>where to find files</strong> on your computer.</p>
 <p>Check your working directory:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "/Users/melaniss/Library/Mobile Documents/com~apple~CloudDocs/Documents/Mannheim/Lehre/Übung/Sessions"</code></pre>
 </div>
 </div>
 <p>Change your working directory (if needed):</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># setwd("~/Documents/R-Course")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>💡 <em>Tip: If you use an <strong>R Project</strong> in RStudio, the working directory will automatically be the project folder.</em></p>
 <hr>
@@ -309,10 +307,7 @@ Sudan,2020,13</code></pre>
 <p>The most common way to read a CSV file is with <code>read.csv</code></p>
 <p>Let’s try it with a sample UCDP dataset (replace with your path):</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ucdp_drc <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/ucdp_drc.csv"</span>, <span class="at">sep=</span><span class="st">";"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>📜 What is <code>stringsAsFactors</code>?</p>
 <p>In older versions of R (before R 4.0), whenever you loaded a CSV file or created a data frame, all text (strings) would automatically be converted into factors unless you told R not to.</p>
@@ -329,10 +324,7 @@ Sudan,2020,13</code></pre>
 <h2 class="anchored" data-anchor-id="inspecting-the-data">🔍 Inspecting the Data</h2>
 <p>We can inspect the dataset with several functions:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ucdp_drc)       <span class="co"># first 6 rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>      id             relid year active_year code_status type_of_violence
 1 561969 DRC-2024-3-934-41 2024        TRUE       Clear                3
@@ -440,10 +432,7 @@ Sudan,2020,13</code></pre>
 5        0        0                1              0    1    1   1   490    NA
 6        0        0                1              0    1    1   1   490    NA</code></pre>
 </div>
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(ucdp_drc)       <span class="co"># last 6 rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>        id               relid year active_year code_status type_of_violence
 384 550242 DRC-2024-2-17833-40 2024        TRUE       Clear                2
@@ -544,24 +533,15 @@ Sudan,2020,13</code></pre>
 388        0        0                1              0    1    1   1    NA    NA
 389        0        2                0              0    2   11   2    NA    NA</code></pre>
 </div>
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(ucdp_drc)       <span class="co"># number of rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 389</code></pre>
 </div>
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(ucdp_drc)       <span class="co"># number of columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 49</code></pre>
 </div>
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ucdp_drc)      <span class="co"># variable names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "id"                "relid"             "year"             
  [4] "active_year"       "code_status"       "type_of_violence" 
@@ -581,10 +561,7 @@ Sudan,2020,13</code></pre>
 [46] "high"              "low"               "gwnoa"            
 [49] "gwnob"            </code></pre>
 </div>
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ucdp_drc)        <span class="co"># structure</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   389 obs. of  49 variables:
  $ id               : int  561969 565256 511771 511488 562163 516017 565179 563500 517211 519156 ...
@@ -637,10 +614,7 @@ Sudan,2020,13</code></pre>
  $ gwnoa            : int  490 490 490 490 490 490 490 490 490 490 ...
  $ gwnob            : logi  NA NA NA NA NA NA ...</code></pre>
 </div>
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ucdp_drc)    <span class="co"># summary statistics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       id            relid                year      active_year    
  Min.   :510571   Length:389         Min.   :2024   Mode :logical  
@@ -746,17 +720,11 @@ Sudan,2020,13</code></pre>
 <h2 class="anchored" data-anchor-id="reading-acled-data">📥 Reading ACLED Data</h2>
 <p>Now let’s load ACLED data:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>acled_drc <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/acled_drc.csv"</span>,<span class="at">sep=</span><span class="st">";"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Inspect it:</p>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(acled_drc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  event_id_cnty       event_date year time_precision      disorder_type
 1      DRC34155 31 December 2024 2024              1 Political violence
@@ -836,10 +804,7 @@ Sudan,2020,13</code></pre>
 5          0                      1753222459
 6          0                      1753222459</code></pre>
 </div>
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(acled_drc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "event_id_cnty"      "event_date"         "year"              
  [4] "time_precision"     "disorder_type"      "event_type"        
@@ -866,10 +831,7 @@ Sudan,2020,13</code></pre>
 <li>Use <code>summary()</code> to look at one numeric variable (e.g.&nbsp;fatalities).</li>
 </ul>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <hr>
 </section>
@@ -895,10 +857,7 @@ Sudan,2020,13</code></pre>
 <li>Write your findings as a comment in the code.</li>
 </ul>
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 
 
